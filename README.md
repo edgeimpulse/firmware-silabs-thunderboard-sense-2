@@ -47,6 +47,34 @@ Alternatively you can build this application with Docker (see below).
 
 1. Under *Application image path* select the `GNU ARM v7.2.1 - Default/app.bin` file and click **OK** to flash.
 
+## Building this project from the command line (locally)
+
+You'll need to have Simplicity Studio 4 installed and configured. Then you can run:
+
+**macOS**
+
+```
+$ mkdir -p ~/ei-workspace
+$ ./build.sh --build /Applications/Simplicity\ Studio.app/Contents/Eclipse/ ~/ei-workspace
+```
+
+**Linux**
+
+```
+$ mkdir -p ~/ei-workspace
+$ ./build.sh --build /opt/SimplicityStudio_v4 .
+```
+
+Replace `/opt/SimplicityStudio_v4` to the path your Simplicity Studio installation.
+
+### Flashing the firmware
+
+You can either drag `./GNU ARM v7.2.1 - Default/firmware-silabs-thunderboard-sense-2.bin` to the `TB004` mass-storage device (mounts as a USB flash drive), or flash with the JLink tools via:
+
+```
+$ ./build.sh --flash
+```
+
 ## Building the application (Docker)
 
 1. Clone this repository:

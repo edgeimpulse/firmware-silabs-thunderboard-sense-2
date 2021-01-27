@@ -8,3 +8,6 @@ imported_project_report.html
 GNU ARM v7.2.1 - Default/firmware-silabs*
 GNU ARM v7.2.1 - Default/
 build-deploy-block.sh
+!.cproject
+!.project
+!protocol/bluetooth/lib/EFR32MG12P/GCC/binapploader.o

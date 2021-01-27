@@ -1,7 +1,7 @@
 device EFR32MG12PxxxF1024
 if SWD
 speed 40000
-loadbin firmware-silabs-thunderboard.bin, 0x0
+loadbin firmware-silabs-thunderboard-sense-2.bin, 0x0
 r0
 r1
 qc
