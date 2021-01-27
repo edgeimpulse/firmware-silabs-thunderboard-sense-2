@@ -97,7 +97,7 @@ $ ./build.sh --flash
 
 1. Copy the `GNU ARM v7.2.1 - Default/app.bin` file to the `TB004` mass-storage device (mounts like a USB flash drive) to flash the firmware.
 
-## Streaming results over BLE phone
+## Streaming results over BLE to your phone
 
 Want to stream the results of your impulse over BLE to your phone? No problem! To do so:
 
