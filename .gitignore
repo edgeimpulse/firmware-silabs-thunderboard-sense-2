@@ -1,0 +1,10 @@
+.settings/
+*.d
+*.o
+BgBuild_Log.txt
+*.bak
+imported_project_report.html
+.settings
+GNU ARM v7.2.1 - Default/firmware-silabs*
+GNU ARM v7.2.1 - Default/
+build-deploy-block.sh
