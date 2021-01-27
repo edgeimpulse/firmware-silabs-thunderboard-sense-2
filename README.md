@@ -96,3 +96,23 @@ $ ./build.sh --flash
     ```
 
 1. Copy the `GNU ARM v7.2.1 - Default/app.bin` file to the `TB004` mass-storage device (mounts like a USB flash drive) to flash the firmware.
+
+## Streaming results over BLE phone
+
+Want to stream the results of your impulse over BLE to your phone? No problem! To do so:
+
+1. Set the `USE_BLE_CLASSIFICATION=1` macro (defined in [ei_device_silabs_efm32mg.h](edgeimpulse/ingestion-sdk-platform/SiliconLabs/ei_device_silabs_efm32mg.h)).
+1. Rebuild and flash this application.
+1. Open a BLE scanner on your phone (tested with LightBlue on iOS) and :
+    * Connect to the **Edge Impulse** device.
+    * Subscribe to the `2A56` characteristic.
+    * Decode the message as UTF8 (click on `HEX` in the top right corner in LightBlue to switch).
+1. Start classification via:
+
+    ```
+    $ edge-impulse-run-impulse
+    ```
+
+1. You now see the classification results on your phone!
+
+    <img src="images/IMG_3F7D69D91929-1.jpeg" height="500">

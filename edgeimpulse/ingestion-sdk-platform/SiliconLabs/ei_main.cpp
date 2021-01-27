@@ -65,4 +65,7 @@ void ei_main(void)
 
 	ei_command_line_handle();
 
+    if(EiDevice.idle_wait()) {
+        run_nn_normal();
+    }
 }

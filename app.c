@@ -44,11 +44,15 @@ void appMain(gecko_configuration_t *pconfig)
 
   /* Initialize stack */
   gecko_init(pconfig);
+
+  conConnectionInit();
 }
 
-void appLoop(void)
+int appLoop(void)
   //while (1) {
 {
+    int retVal = 0;
+
     /* Event pointer for handling events */
     struct gecko_cmd_packet* evt;
 
@@ -87,6 +91,8 @@ void appLoop(void)
         break;
 
       case gecko_evt_le_connection_opened_id:
+
+        conConnectionStarted(evt->data.evt_le_connection_opened.connection, evt->data.evt_le_connection_opened.bonding);
 
         printLog("connection opened\r\n");
 
@@ -140,13 +146,23 @@ void appLoop(void)
 
       default:
 
+        if(evt->data.evt_gatt_server_user_write_request.characteristic == gattdb_enable) {
+
+            uint8_t *data = (uint8_t *)&evt->data.evt_gatt_server_user_write_request.value;
+
+            retVal = data[1] == 1 ? 1 : -1;
+        }
+
         if(evt->header != 0x20010000) {
-    	   printf("Unknown event: %X\r\n", evt->header);
+
+          printLog("Unknown event: %X characteristic: %X \r\n", evt->header, evt->data.evt_gatt_server_user_write_request.characteristic);
         }
         break;
     }
   evt = gecko_peek_event();
   }
+
+    return retVal;
 }
 
 /* Print stack version and local Bluetooth address as boot message */

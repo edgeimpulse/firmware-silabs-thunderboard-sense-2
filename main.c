@@ -26,6 +26,7 @@
 #include "ble-configuration.h"
 #include "board_features.h"
 #include "retargetserial.h"
+#include "connection.h"
 
 /* Bluetooth stack headers */
 #include "bg_types.h"
@@ -36,6 +37,15 @@
 #include "em_emu.h"
 #include "em_cmu.h"
 #include "em_timer.h"
+
+/* Device initialization header */
+#include "hal-config.h"
+
+#if defined(HAL_CONFIG)
+#include "bsphalconfig.h"
+#else
+#include "bspconfig.h"
+#endif
 
 #include "thunderboard/util.h"
 #include "thunderboard/board.h"
@@ -141,6 +151,15 @@ void setupTimer(void)
 }
 
 /**
+ * @brief      Timer callback to handle ble
+ *
+ */
+int periodic_ble_handle(void)
+{
+    return appLoop();
+}
+
+/**
  * @brief  Main function
  */
 int main(void)
@@ -171,6 +190,18 @@ int main(void)
         ei_main();
         //appLoop();
     }
+}
+
+/** Send classified output in notification message */
+void send_classifier_output(const uint8_t *output)
+{
+    int length = strlen((const char *)output);
+
+    gecko_cmd_gatt_server_send_characteristic_notification(
+        conGetConnectionId(),
+        gattdb_classifier,
+        length,
+        (const)output);
 }
 
 /** @} (end addtogroup app) */

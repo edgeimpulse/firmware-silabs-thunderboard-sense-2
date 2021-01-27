@@ -38,6 +38,7 @@ extern "C" void BOARD_rgbledSetColor(uint8_t red, uint8_t green, uint8_t blue);
 extern "C" void USART_Tx(USART_TypeDef *usart, uint8_t data);
 
 extern "C" void ei_led_state_control(void);
+extern "C" int periodic_ble_handle(void);
 
 /* Constants --------------------------------------------------------------- */
 #define EI_LED_BLUE     BOARD_rgbledSetColor(58>>2, 180>>2, 205>>2)
@@ -231,6 +232,27 @@ void EiDeviceEfm32Mg::set_state(tEiState state)
 }
 
 /**
+ * @brief      Call BLE functions if classifier is waiting
+ *
+ * @return     Start or stop classification over BLE
+ */
+int EiDeviceEfm32Mg::idle_wait(void)
+{
+    int start_stop = 0;
+
+#if USE_BLE_CLASSIFICATION == 1
+
+    start_stop = periodic_ble_handle();
+
+    if(start_stop) {
+        ei_printf("Start: %d\r\n", start_stop);
+    }
+#endif
+
+    return start_stop;
+}
+
+/**
  * @brief      Get a C callback for the get_id method
  *
  * @return     Pointer to c get function
@@ -286,9 +308,9 @@ c_callback_read_sample_buffer EiDeviceEfm32Mg::get_read_sample_buffer_function(v
  * @param      data    The data
  * @param[in]  length  The length
  */
-void ei_write_string(char *data, int length) 
+void ei_write_string(char *data, int length)
 {
-    for( int i = 0; i < length; i++) {        
+    for( int i = 0; i < length; i++) {
         USART_Tx(RETARGET_UART, *(data++));
     }
 }
@@ -354,7 +376,7 @@ void ei_printf_float(float f)
         }
         *(c) = '\0';
         ei_write_string(s, c - s);
-    }    
+    }
 }
 
 /**
@@ -374,7 +396,7 @@ bool ei_user_invoke_stop(void)
 {
     bool stop_found = false;
     char data = RETARGET_ReadChar();
-    
+
     while(data != 0xFF) {
         if(data == 'b') {
             stop_found = true;

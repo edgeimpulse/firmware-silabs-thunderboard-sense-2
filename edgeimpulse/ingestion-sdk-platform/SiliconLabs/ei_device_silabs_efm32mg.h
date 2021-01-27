@@ -35,6 +35,11 @@ extern void ei_printf(const char *format, ...);
 /** Number of sensors used */
 #define EI_DEVICE_N_SENSORS		2
 
+/** Enable classification over BLE? */
+#ifndef USE_BLE_CLASSIFICATION
+#define USE_BLE_CLASSIFICATION	0
+#endif // USE_BLE_CLASSIFICATION
+
 /** EI ingestion and inferencing state */
 typedef enum
 {
@@ -52,16 +57,16 @@ typedef bool (*c_callback_status)(void);
 typedef bool (*c_callback_read_sample_buffer)(size_t begin, size_t length, void(*data_fn)(uint8_t*, size_t));
 
 /**
- * @brief      Class description and implementation of device specific 
+ * @brief      Class description and implementation of device specific
  * 			   characteristics
- */	
+ */
 class EiDeviceEfm32Mg : public EiDeviceInfo
 {
 private:
 	ei_device_sensor_t sensors[EI_DEVICE_N_SENSORS];
-public:	
+public:
 	EiDeviceEfm32Mg(void);
-	
+
 	int get_id(uint8_t out_buffer[32], size_t *out_size);
 	const char *get_id_pointer(void);
 	int get_type(uint8_t out_buffer[32], size_t *out_size);
@@ -72,13 +77,14 @@ public:
 	void delay_ms(uint32_t milliseconds);
 	uint64_t get_ms(void);
 	void set_state(tEiState state);
+	int idle_wait(void);
 
 	c_callback get_id_function(void);
 	c_callback get_type_function(void);
 	c_callback_status get_wifi_connection_status_function(void);
 	c_callback_status get_wifi_present_status_function(void);
 	c_callback_read_sample_buffer get_read_sample_buffer_function(void);
-	
+
 };
 
 /* Function prototypes ----------------------------------------------------- */

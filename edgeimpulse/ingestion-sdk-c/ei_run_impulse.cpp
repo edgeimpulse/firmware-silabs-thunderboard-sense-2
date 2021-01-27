@@ -27,6 +27,8 @@
 #include "ei_microphone.h"
 #include "ei_device_silabs_efm32mg.h"
 
+extern "C" void send_classifier_output(const uint8_t *output);
+
 #if defined(EI_CLASSIFIER_SENSOR) && EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_ACCELEROMETER
 
 /* Private variables ------------------------------------------------------- */
@@ -53,6 +55,8 @@ static void acc_read_data(float *values, size_t value_size)
 void run_nn(bool debug)
 {
     bool stop_inferencing = false;
+    uint8_t prev_classification = EI_CLASSIFIER_LABEL_COUNT;
+
     // summary of inferencing settings (from model_metadata.h)
     ei_printf("Inferencing settings:\n");
     ei_printf("\tInterval: ");
@@ -78,7 +82,7 @@ void run_nn(bool debug)
             break;
         }
 
-        if(ei_user_invoke_stop()) {
+        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
             ei_printf("Inferencing stopped by user\r\n");
             break;
         }
@@ -118,6 +122,11 @@ void run_nn(bool debug)
             ei_printf("    %s: \t", result.classification[ix].label);
             ei_printf_float(result.classification[ix].value);
             ei_printf("\r\n");
+
+            if(result.classification[ix].value > 0.8 && prev_classification != ix) {
+                send_classifier_output((const uint8_t *)result.classification[ix].label);
+            }
+
         }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
         ei_printf("    anomaly score: ");
@@ -135,6 +144,7 @@ void run_nn(bool debug)
 void run_nn(bool debug)
 {
     extern signal_t ei_microphone_get_signal();
+    uint8_t prev_classification = EI_CLASSIFIER_LABEL_COUNT;
 
     // summary of inferencing settings (from model_metadata.h)
     ei_printf("Inferencing settings:\n");
@@ -161,7 +171,7 @@ void run_nn(bool debug)
             break;
         }
 
-        if(ei_user_invoke_stop()) {
+        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
             ei_printf("Inferencing stopped by user\r\n");
             break;
         }
@@ -195,6 +205,10 @@ void run_nn(bool debug)
             ei_printf("    %s: \t", result.classification[ix].label);
             ei_printf_float(result.classification[ix].value);
             ei_printf("\r\n");
+
+            if(result.classification[ix].value > 0.8 && prev_classification != ix) {
+                send_classifier_output((const uint8_t *)result.classification[ix].label);
+            }
         }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
         ei_printf("    anomaly score: ");
@@ -214,6 +228,7 @@ void run_nn(bool debug)
 void run_nn_continuous(bool debug)
 {
     bool stop_inferencing = false;
+    uint8_t prev_classification = EI_CLASSIFIER_LABEL_COUNT;
     int print_results = -(EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW);
     // summary of inferencing settings (from model_metadata.h)
     ei_printf("Inferencing settings:\n");
@@ -257,6 +272,11 @@ void run_nn_continuous(bool debug)
                 ei_printf("    %s: \t", result.classification[ix].label);
                 ei_printf_float(result.classification[ix].value);
                 ei_printf("\r\n");
+
+                if(result.classification[ix].value > 0.8 && prev_classification != ix) {
+                    send_classifier_output((const uint8_t *)result.classification[ix].label);
+                    prev_classification = ix;
+                }
             }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
             ei_printf("    anomaly score: ");
@@ -267,7 +287,7 @@ void run_nn_continuous(bool debug)
             print_results = 0;
         }
 
-        if(ei_user_invoke_stop()) {
+        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
             ei_printf("Inferencing stopped by user\r\n");
             break;
         }

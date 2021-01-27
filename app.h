@@ -20,7 +20,7 @@
 #include "gecko_configuration.h"
 
 /* DEBUG_LEVEL is used to enable/disable debug prints. Set DEBUG_LEVEL to 1 to enable debug prints */
-#define DEBUG_LEVEL 1
+#define DEBUG_LEVEL 0
 
 /* Set this value to 1 if you want to disable deep sleep completely */
 #define DISABLE_SLEEP 0
@@ -42,6 +42,6 @@
 
 /* Main application */
 void appMain(gecko_configuration_t *pconfig);
-void appLoop(void);
+int appLoop(void);
 
 #endif

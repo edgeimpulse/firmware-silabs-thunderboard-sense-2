@@ -18,20 +18,19 @@ extern const struct bg_gattdb_def bg_gattdb_data;
 #define gattdb_client_support_features          8
 #define gattdb_device_name                     11
 #define gattdb_ota_control                     23
-#define gattdb_digital                         26
+#define gattdb_classifier                      26
 #define gattdb_characteristic_presentation_format         28
 #define gattdb_characteristic_user_description         29
 #define gattdb_characteristic_extended_properties         30
 #define gattdb_value_trigger_setting           31
 #define gattdb_time_trigger_setting            32
 #define gattdb_number_of_digitals              33
-#define gattdb_analog                          35
+#define gattdb_enable                          35
 #define gattdb_characteristic_presentation_format_2         37
 #define gattdb_characteristic_user_description_2         38
 #define gattdb_characteristic_extended_properties_2         39
 #define gattdb_value_trigger_setting_2         40
 #define gattdb_time_trigger_setting_2          41
 #define gattdb_valid_range                     42
-#define gattdb_aggregate                       44
 
 #endif
