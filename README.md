@@ -28,7 +28,7 @@ Alternatively you can build this application with Docker (see below).
 
 1. Open Simplicity Studio v4, and start the import wizard via **Project > Import > MCU Project...**.
 
-1. Navigate to the `firmware-silabs-thunderboard-sense-2` directory. This will detect wo projects. Select the  2 Projects are now dectected. Select the **firmware-silabs-thunderboard-sense-2** project and choose **Next**.
+1. Navigate to the `firmware-silabs-thunderboard-sense-2` directory. Select the **firmware-silabs-thunderboard-sense-2** project and choose **Next**.
 
     <img src="images/select_import_project.png" height="500">
 
@@ -45,7 +45,7 @@ Alternatively you can build this application with Docker (see below).
 
     ![](images/upload_application.png)
 
-1. Under *Application image path* select the `GNU ARM v7.2.1 - Default/app.bin` file and click **OK** to flash.
+1. Under *Application image path* select the `GNU ARM v7.2.1 - Default/firmware-silabs-thunderboard-sense-2.bin` file and click **OK** to flash.
 
 ## Building this project from the command line (locally)
 
