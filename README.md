@@ -12,7 +12,7 @@
 
 ### Tools
 
-* [Simplicity Studio 4](https://www.silabs.com/developers/simplicity-studio) - you can probably build this application with v5 as well, but it was built with v4.
+* [Simplicity Studio 4](https://www.silabs.com/developers/simplicity-studio).
 
 Alternatively you can build this application with Docker (see below).
 

@@ -75,14 +75,19 @@ void run_nn(bool debug)
     ei_inertial_sample_start(&acc_data_callback, EI_CLASSIFIER_INTERVAL_MS);
 
     while (stop_inferencing == false) {
+        int ble_stop_detect = 0;
+
         ei_printf("Starting inferencing in 2 seconds...\n");
 
         // instead of wait_ms, we'll wait on the signal, this allows threads to cancel us...
-        if (ei_sleep(2000) != EI_IMPULSE_OK) {
-            break;
+        for(int i = 0; i < 200; i++) {
+            if (ei_sleep(10) != EI_IMPULSE_OK) {
+                ble_stop_detect |= EiDevice.idle_wait();
+                break;
+            }
         }
 
-        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
+        if(ei_user_invoke_stop() || (ble_stop_detect == -1)) {
             ei_printf("Inferencing stopped by user\r\n");
             break;
         }
@@ -98,6 +103,8 @@ void run_nn(bool debug)
         for(int i = 0; i < EI_CLASSIFIER_RAW_SAMPLE_COUNT; i++) {
             ei_inertial_read_data();
             acc_sample_count += EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME;
+
+            ble_stop_detect |= EiDevice.idle_wait();
         }
 
         // Create a data structure to represent this window of data
@@ -125,6 +132,7 @@ void run_nn(bool debug)
 
             if(result.classification[ix].value > 0.8 && prev_classification != ix) {
                 send_classifier_output((const uint8_t *)result.classification[ix].label);
+                prev_classification = ix;
             }
 
         }
@@ -134,11 +142,13 @@ void run_nn(bool debug)
         ei_printf("\r\n");        
 #endif
 
-        if(ei_user_invoke_stop()) {
+        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1) || (ble_stop_detect == -1)) {
             ei_printf("Inferencing stopped by user\r\n");
             break;
         }
     }
+
+    EiDevice.set_state(eiStateIdle);
 }
 #elif defined(EI_CLASSIFIER_SENSOR) && EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_MICROPHONE
 void run_nn(bool debug)
@@ -164,14 +174,19 @@ void run_nn(bool debug)
     ei_printf("Starting inferencing, press 'b' to break\n");
 
     while (1) {
+        int ble_stop_detect = 0;
+
         ei_printf("Starting inferencing in 2 seconds...\n");
 
         // instead of wait_ms, we'll wait on the signal, this allows threads to cancel us...
-        if (ei_sleep(2000) != EI_IMPULSE_OK) {
-            break;
+        for(int i = 0; i < 200; i++) {
+            if (ei_sleep(10) != EI_IMPULSE_OK) {
+                ble_stop_detect |= EiDevice.idle_wait();
+                break;
+            }
         }
 
-        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
+        if(ei_user_invoke_stop() || (ble_stop_detect == -1)) {
             ei_printf("Inferencing stopped by user\r\n");
             break;
         }
@@ -208,6 +223,7 @@ void run_nn(bool debug)
 
             if(result.classification[ix].value > 0.8 && prev_classification != ix) {
                 send_classifier_output((const uint8_t *)result.classification[ix].label);
+                prev_classification = ix;
             }
         }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
@@ -216,7 +232,7 @@ void run_nn(bool debug)
         ei_printf("\r\n");
 #endif
 
-        if(ei_user_invoke_stop()) {
+        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1) || (ble_stop_detect == -1)) {
             ei_printf("Inferencing stopped by user\r\n");
             break;
         }

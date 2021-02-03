@@ -325,6 +325,7 @@ bool ei_microphone_inference_record(void)
 
     while(inference.buf_ready == 0) {
         get_dsp_data(&audio_buffer_inference_callback);
+        EiDevice.idle_wait();
     };
 
     inference.buf_ready = 0;
