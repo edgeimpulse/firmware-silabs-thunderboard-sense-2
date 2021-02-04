@@ -38,18 +38,11 @@ static int acc_sample_count = 0;
 static bool acc_data_callback(const void *sample_buf, uint32_t byteLength)
 {
     float *buffer = (float *)sample_buf;
-    for(int i = 0; i < (byteLength / sizeof(float)); i++) {
+    for(uint32_t i = 0; i < (byteLength / sizeof(float)); i++) {
         acc_buf[acc_sample_count + i] = buffer[i];
     }
 
     return true;
-}
-
-static void acc_read_data(float *values, size_t value_size)
-{    
-    for (size_t i = 0; i < value_size; i++) {
-        values[i] = acc_buf[i];
-    }
 }
 
 void run_nn(bool debug)
@@ -111,7 +104,7 @@ void run_nn(bool debug)
         signal_t signal;
         int err = numpy::signal_from_buffer(acc_buf, EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE, &signal);
         if (err != 0) {
-            ei_printf("ERR: signal_from_buffer failed (%d)\n", err); 
+            ei_printf("ERR: signal_from_buffer failed (%d)\n", err);
         }
 
         // run the impulse: DSP, neural network and the Anomaly algorithm
@@ -125,7 +118,7 @@ void run_nn(bool debug)
         // print the predictions
         ei_printf("Predictions (DSP: %d ms., Classification: %d ms., Anomaly: %d ms.): \n",
             result.timing.dsp, result.timing.classification, result.timing.anomaly);
-        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {            
+        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
             ei_printf("    %s: \t", result.classification[ix].label);
             ei_printf_float(result.classification[ix].value);
             ei_printf("\r\n");
@@ -139,7 +132,7 @@ void run_nn(bool debug)
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
         ei_printf("    anomaly score: ");
         ei_printf_float(result.anomaly);
-        ei_printf("\r\n");        
+        ei_printf("\r\n");
 #endif
 
         if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1) || (ble_stop_detect == -1)) {
@@ -216,7 +209,7 @@ void run_nn(bool debug)
         // print the predictions
         ei_printf("Predictions (DSP: %d ms., Classification: %d ms., Anomaly: %d ms.): \n",
             result.timing.dsp, result.timing.classification, result.timing.anomaly);
-        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {            
+        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
             ei_printf("    %s: \t", result.classification[ix].label);
             ei_printf_float(result.classification[ix].value);
             ei_printf("\r\n");
@@ -284,7 +277,7 @@ void run_nn_continuous(bool debug)
             // print the predictions
             ei_printf("Predictions (DSP: %d ms., Classification: %d ms., Anomaly: %d ms.): \n",
                 result.timing.dsp, result.timing.classification, result.timing.anomaly);
-            for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {            
+            for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
                 ei_printf("    %s: \t", result.classification[ix].label);
                 ei_printf_float(result.classification[ix].value);
                 ei_printf("\r\n");

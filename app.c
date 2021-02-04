@@ -23,7 +23,7 @@
 #include "bg_types.h"
 #include "native_gecko.h"
 #include "gatt_db.h"
-
+#include "connection.h"
 #include "app.h"
 
 /* Print boot message */

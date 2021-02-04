@@ -124,7 +124,7 @@ void TIMER1_IRQHandler(void)
     TIMER_IntClear(TIMER1, 1);
 
     ei_led_state_control();
-    //appLoop();  
+    //appLoop();
 
     NVIC_ClearPendingIRQ(TIMER1_IRQn);
 }
@@ -136,13 +136,13 @@ void TIMER1_IRQHandler(void)
 void setupTimer(void)
 {
     TIMER_Init_TypeDef   timerInit = TIMER_INIT_DEFAULT;
-      
+
     timerInit.prescale = timerPrescale256;
-  
+
     CMU_ClockEnable(cmuClock_TIMER1, true);
     TIMER_Init(TIMER1, &timerInit);
     TIMER_TopSet(TIMER1, 0xFFFF);
-    
+
     NVIC_ClearPendingIRQ(TIMER1_IRQn);
     NVIC_EnableIRQ(TIMER1_IRQn);
     TIMER_Enable(TIMER1, true);
@@ -180,7 +180,7 @@ int main(void)
     MX25_init();
 
     ei_init();
-  
+
     /* Start application */
     appMain(&config);
 
@@ -201,7 +201,7 @@ void send_classifier_output(const uint8_t *output)
         conGetConnectionId(),
         gattdb_classifier,
         length,
-        (const)output);
+        output);
 }
 
 /** @} (end addtogroup app) */
