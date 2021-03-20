@@ -137,7 +137,7 @@ void setupTimer(void)
 {
     TIMER_Init_TypeDef   timerInit = TIMER_INIT_DEFAULT;
 
-    timerInit.prescale = timerPrescale256;
+    timerInit.prescale = timerPrescale1;
 
     CMU_ClockEnable(cmuClock_TIMER1, true);
     TIMER_Init(TIMER1, &timerInit);

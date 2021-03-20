@@ -26,13 +26,25 @@
 #include "ei_inertialsensor.h"
 #include "ei_microphone.h"
 #include "ei_device_silabs_efm32mg.h"
+#include "em_timer.h"
+#include "em_gpio.h"
+#include "em_cmu.h"
 
 extern "C" void send_classifier_output(const uint8_t *output);
 
 #if defined(EI_CLASSIFIER_SENSOR) && EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_ACCELEROMETER
 
+extern "C" void BOARD_rgbledSetColor(uint8_t red, uint8_t green, uint8_t blue);
+
+/* Constants --------------------------------------------------------------- */
+#define EI_LED_BLUE     BOARD_rgbledSetColor(58>>2, 180>>2, 205>>2)
+#define EI_LED_GREEN    BOARD_rgbledSetColor(164>>2, 198>>2, 9>>2)
+#define EI_LED_YELLOW   BOARD_rgbledSetColor(255>>2, 187>>2, 5>>2)
+#define EI_LED_RED      BOARD_rgbledSetColor(255>>2, 67>>2, 26>>2)
+#define EI_LED_OFF      BOARD_rgbledSetColor(0, 0, 0)
+
 /* Private variables ------------------------------------------------------- */
-static float acc_buf[EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE];
+static float acc_buf[EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE] = { 0 };
 static int acc_sample_count = 0;
 
 static bool acc_data_callback(const void *sample_buf, uint32_t byteLength)
@@ -41,6 +53,22 @@ static bool acc_data_callback(const void *sample_buf, uint32_t byteLength)
     for(uint32_t i = 0; i < (byteLength / sizeof(float)); i++) {
         acc_buf[acc_sample_count + i] = buffer[i];
     }
+
+    return true;
+}
+
+static int total_events = 0;
+
+static bool acc_data_callback_continuous(const void *sample_buf, uint32_t byteLength)
+{
+    total_events++;
+
+    numpy::roll(acc_buf, EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE, -3);
+
+    float *buffer = (float *)sample_buf;
+    acc_buf[EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE - 3] = buffer[0];
+    acc_buf[EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE - 2] = buffer[1];
+    acc_buf[EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE - 1] = buffer[2];
 
     return true;
 }
@@ -143,6 +171,215 @@ void run_nn(bool debug)
 
     EiDevice.set_state(eiStateIdle);
 }
+
+static bool is_sampling_continuous = false;
+
+void timer_ev() {
+    static uint64_t next_ev = 0;
+
+    if (is_sampling_continuous && ei_read_timer_ms() >= next_ev) {
+        next_ev = ei_read_timer_ms() + 10;
+        ei_inertial_read_data();
+    }
+}
+
+void run_nn_continuous(bool debug)
+{
+    bool stop_inferencing = false;
+
+    // summary of inferencing settings (from model_metadata.h)
+    ei_printf("Inferencing settings:\n");
+    ei_printf("\tInterval: ");
+    ei_printf_float((float)EI_CLASSIFIER_INTERVAL_MS);
+    ei_printf("ms.\n");
+    ei_printf("\tFrame size: %d\n", EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE);
+    ei_printf("\tSample length: ");
+    ei_printf_float(1000.0f * static_cast<float>(EI_CLASSIFIER_RAW_SAMPLE_COUNT) /
+                  (1000.0f / static_cast<float>(EI_CLASSIFIER_INTERVAL_MS)));
+    ei_printf("ms.\n");
+    ei_printf("\tNo. of classes: %d\n", sizeof(ei_classifier_inferencing_categories) /
+                                            sizeof(ei_classifier_inferencing_categories[0]));
+
+    ei_printf("Starting inferencing, press 'b' to break\n");
+
+    memset(acc_buf, 0, EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE * sizeof(float));
+
+    ei_inertial_sample_start(&acc_data_callback_continuous, EI_CLASSIFIER_INTERVAL_MS);
+
+    total_events = 0;
+    is_sampling_continuous = true;
+    uint64_t start = ei_read_timer_ms();
+    uint64_t next_classification = start + (EI_CLASSIFIER_INTERVAL_MS * EI_CLASSIFIER_RAW_SAMPLE_COUNT) + 200;
+
+    while (stop_inferencing == false) {
+        if(ei_user_invoke_stop()) {
+            ei_printf("Inferencing stopped by user\r\n");
+            break;
+        }
+
+        if (stop_inferencing) {
+            break;
+        }
+
+        if (ei_read_timer_ms() < next_classification) {
+            ei_sleep(next_classification - ei_read_timer_ms());
+        }
+
+        next_classification = ei_read_timer_ms() + 100;
+
+        // Create a data structure to represent this window of data
+        signal_t signal;
+        int err = numpy::signal_from_buffer(acc_buf, EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE, &signal);
+        if (err != 0) {
+            ei_printf("ERR: signal_from_buffer failed (%d)\n", err);
+        }
+
+        // run the impulse: DSP, neural network and the Anomaly algorithm
+        ei_impulse_result_t result = { 0 };
+        EI_IMPULSE_ERROR ei_error = run_classifier(&signal, &result, debug);
+        if (ei_error != EI_IMPULSE_OK) {
+            ei_printf("Failed to run impulse (%d)\n", ei_error);
+            break;
+        }
+
+        // print the predictions
+        // ei_printf("Predictions (DSP: %d ms., Classification: %d ms., Anomaly: %d ms.): \n",
+        //     result.timing.dsp, result.timing.classification, result.timing.anomaly);
+        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
+            ei_printf("%s: ", result.classification[ix].label);
+            ei_printf_float(result.classification[ix].value);
+            ei_printf(", ");
+
+        }
+#if EI_CLASSIFIER_HAS_ANOMALY == 1
+        ei_printf("anomaly score: ");
+        ei_printf_float(result.anomaly);
+        ei_printf("\r\n");
+#endif
+
+        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
+            ei_printf("Inferencing stopped by user\r\n");
+            break;
+        }
+    }
+
+    uint64_t total_time = ei_read_timer_ms() - start;
+
+    printf("total events received: %d in %dms.\n", total_events, (int)total_time);
+
+    is_sampling_continuous = false;
+
+    EiDevice.set_state(eiStateIdle);
+}
+
+void run_nn_smooth(bool debug)
+{
+    bool stop_inferencing = false;
+
+    // summary of inferencing settings (from model_metadata.h)
+    ei_printf("Inferencing settings:\n");
+    ei_printf("\tInterval: ");
+    ei_printf_float((float)EI_CLASSIFIER_INTERVAL_MS);
+    ei_printf("ms.\n");
+    ei_printf("\tFrame size: %d\n", EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE);
+    ei_printf("\tSample length: ");
+    ei_printf_float(1000.0f * static_cast<float>(EI_CLASSIFIER_RAW_SAMPLE_COUNT) /
+                  (1000.0f / static_cast<float>(EI_CLASSIFIER_INTERVAL_MS)));
+    ei_printf("ms.\n");
+    ei_printf("\tNo. of classes: %d\n", sizeof(ei_classifier_inferencing_categories) /
+                                            sizeof(ei_classifier_inferencing_categories[0]));
+
+    ei_printf("Starting inferencing, press 'b' to break\n");
+
+    ei_classifier_smooth_t smooth;
+    ei_classifier_smooth_init(&smooth, 10 /* no. of readings */, 7 /* min. readings the same */, 0.75 /* min. confidence */, 0.5 /* max anomaly */);
+
+    memset(acc_buf, 0, EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE * sizeof(float));
+
+    ei_inertial_sample_start(&acc_data_callback_continuous, EI_CLASSIFIER_INTERVAL_MS);
+
+    total_events = 0;
+    is_sampling_continuous = true;
+    uint64_t start = ei_read_timer_ms();
+    uint64_t next_classification = start + (EI_CLASSIFIER_INTERVAL_MS * EI_CLASSIFIER_RAW_SAMPLE_COUNT) + 200;
+
+    while (stop_inferencing == false) {
+        if(ei_user_invoke_stop()) {
+            ei_printf("Inferencing stopped by user\r\n");
+            break;
+        }
+
+        if (stop_inferencing) {
+            break;
+        }
+
+        if (ei_read_timer_ms() < next_classification) {
+            ei_sleep(next_classification - ei_read_timer_ms());
+        }
+
+        next_classification = ei_read_timer_ms() + 100;
+
+        // Create a data structure to represent this window of data
+        signal_t signal;
+        int err = numpy::signal_from_buffer(acc_buf, EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE, &signal);
+        if (err != 0) {
+            ei_printf("ERR: signal_from_buffer failed (%d)\n", err);
+        }
+
+        // run the impulse: DSP, neural network and the Anomaly algorithm
+        ei_impulse_result_t result = { 0 };
+        EI_IMPULSE_ERROR ei_error = run_classifier(&signal, &result, debug);
+        if (ei_error != EI_IMPULSE_OK) {
+            ei_printf("Failed to run impulse (%d)\n", ei_error);
+            break;
+        }
+
+        // ei_classifier_smooth_update yields the predicted label
+        const char *prediction = ei_classifier_smooth_update(&smooth, &result);
+        ei_printf("%s ", prediction);
+        // print the cumulative results
+        ei_printf(" [ ");
+        for (size_t ix = 0; ix < smooth.count_size; ix++) {
+            ei_printf("%u", smooth.count[ix]);
+            if (ix != smooth.count_size + 1) {
+                ei_printf(", ");
+            }
+            else {
+              ei_printf(" ");
+            }
+        }
+        ei_printf("]\n");
+
+        if (strcmp(prediction, "elephant") == 0) {
+            EI_LED_GREEN;
+        }
+        else if (strcmp(prediction, "gazelle") == 0) {
+            EI_LED_BLUE;
+        }
+        else if (strcmp(prediction, "idle") == 0) {
+            EI_LED_OFF;
+        }
+        else {
+            EI_LED_RED;
+        }
+
+        if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
+            ei_printf("Inferencing stopped by user\r\n");
+            break;
+        }
+    }
+
+    ei_classifier_smooth_free(&smooth);
+
+    uint64_t total_time = ei_read_timer_ms() - start;
+
+    printf("total events received: %d in %dms.\n", total_events, (int)total_time);
+
+    is_sampling_continuous = false;
+
+    EiDevice.set_state(eiStateIdle);
+}
+
 #elif defined(EI_CLASSIFIER_SENSOR) && EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_MICROPHONE
 void run_nn(bool debug)
 {
@@ -313,8 +550,17 @@ void run_nn_continuous(bool debug)
 
 void run_nn_continuous_normal()
 {
-#if defined(EI_CLASSIFIER_SENSOR) && EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_MICROPHONE
+#if defined(EI_CLASSIFIER_SENSOR) && (EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_MICROPHONE || EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_ACCELEROMETER)
     run_nn_continuous(false);
+#else
+    ei_printf("Error no continuous classification available for current model\r\n");
+#endif
+}
+
+void run_nn_continuous_smooth()
+{
+#if defined(EI_CLASSIFIER_SENSOR) && (EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_ACCELEROMETER)
+    run_nn_smooth(false);
 #else
     ei_printf("Error no continuous classification available for current model\r\n");
 #endif

@@ -28,6 +28,8 @@
 #define EI_CLASSIFIER_UTENSOR                    1
 #define EI_CLASSIFIER_TFLITE                     2
 #define EI_CLASSIFIER_CUBEAI                     3
+#define EI_CLASSIFIER_TFLITE_FULL                4
+#define EI_CLASSIFIER_TENSAIFLOW                 5
 
 #define EI_CLASSIFIER_SENSOR_UNKNOWN             -1
 #define EI_CLASSIFIER_SENSOR_MICROPHONE          1
@@ -38,30 +40,34 @@
 #define EI_CLASSIFIER_DATATYPE_FLOAT32           1
 #define EI_CLASSIFIER_DATATYPE_INT8              9
 
+#define EI_CLASSIFIER_PROJECT_ID                 22479
+#define EI_CLASSIFIER_PROJECT_OWNER              "Edge Impulse Inc."
+#define EI_CLASSIFIER_PROJECT_NAME               "TinyML Summit 2021"
+#define EI_CLASSIFIER_PROJECT_DEPLOY_VERSION     2
 #define EI_CLASSIFIER_NN_INPUT_FRAME_SIZE        33
-#define EI_CLASSIFIER_RAW_SAMPLE_COUNT           125
+#define EI_CLASSIFIER_RAW_SAMPLE_COUNT           120
 #define EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME      3
 #define EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE       (EI_CLASSIFIER_RAW_SAMPLE_COUNT * EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME)
 #define EI_CLASSIFIER_INPUT_WIDTH                0
 #define EI_CLASSIFIER_INPUT_HEIGHT               0
-#define EI_CLASSIFIER_INTERVAL_MS                16
+#define EI_CLASSIFIER_INTERVAL_MS                10
 #define EI_CLASSIFIER_OUT_TENSOR_NAME            "y_pred/Softmax_1:0"
-#define EI_CLASSIFIER_LABEL_COUNT                4
+#define EI_CLASSIFIER_LABEL_COUNT                3
 #define EI_CLASSIFIER_HAS_ANOMALY                1
-#define EI_CLASSIFIER_FREQUENCY                  62.5
+#define EI_CLASSIFIER_FREQUENCY                  100
+#define EI_CLASSIFIER_USE_QUANTIZED_DSP_BLOCK    0
 
-#define EI_CLASSIFIER_TFLITE_ARENA_SIZE          3673
-#define EI_CLASSIFIER_TFLITE_INPUT_DATATYPE      EI_CLASSIFIER_DATATYPE_INT8
-#define EI_CLASSIFIER_TFLITE_INPUT_QUANTIZED     1
-#define EI_CLASSIFIER_TFLITE_INPUT_SCALE         0.12238284945487976
-#define EI_CLASSIFIER_TFLITE_INPUT_ZEROPOINT     -128
-#define EI_CLASSIFIER_TFLITE_OUTPUT_DATATYPE     EI_CLASSIFIER_DATATYPE_INT8
-#define EI_CLASSIFIER_TFLITE_OUTPUT_QUANTIZED     1
-#define EI_CLASSIFIER_TFLITE_OUTPUT_SCALE        0.00390625
-#define EI_CLASSIFIER_TFLITE_OUTPUT_ZEROPOINT    -128
+#define EI_CLASSIFIER_TFLITE_ARENA_SIZE          3424
+#define EI_CLASSIFIER_TFLITE_INPUT_DATATYPE      EI_CLASSIFIER_DATATYPE_FLOAT32
+#define EI_CLASSIFIER_TFLITE_INPUT_QUANTIZED     0
+#define EI_CLASSIFIER_TFLITE_INPUT_SCALE         0
+#define EI_CLASSIFIER_TFLITE_INPUT_ZEROPOINT     0
+#define EI_CLASSIFIER_TFLITE_OUTPUT_DATATYPE     EI_CLASSIFIER_DATATYPE_FLOAT32
+#define EI_CLASSIFIER_TFLITE_OUTPUT_QUANTIZED    0
+#define EI_CLASSIFIER_TFLITE_OUTPUT_SCALE        0
+#define EI_CLASSIFIER_TFLITE_OUTPUT_ZEROPOINT    0
 #define EI_CLASSIFIER_INFERENCING_ENGINE         EI_CLASSIFIER_TFLITE
 #define EI_CLASSIFIER_COMPILED                   1
-#define EI_CLASSIFIER_SENSOR                     EI_CLASSIFIER_SENSOR_ACCELEROMETER
 #define EI_CLASSIFIER_HAS_TFLITE_OPS_RESOLVER    1
 
 #define EI_CLASSIFIER_SENSOR                     EI_CLASSIFIER_SENSOR_ACCELEROMETER
@@ -70,7 +76,17 @@
 #define EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW    4
 #endif // EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW
 
-const char* ei_classifier_inferencing_categories[] = { "idle", "snake", "updown", "wave" };
+#if EI_CLASSIFIER_INFERENCING_ENGINE == EI_CLASSIFIER_TFLITE && EI_CLASSIFIER_USE_FULL_TFLITE == 1
+#undef EI_CLASSIFIER_INFERENCING_ENGINE
+#undef EI_CLASSIFIER_HAS_TFLITE_OPS_RESOLVER
+#define EI_CLASSIFIER_INFERENCING_ENGINE          EI_CLASSIFIER_TFLITE_FULL
+#define EI_CLASSIFIER_HAS_TFLITE_OPS_RESOLVER     0
+#if EI_CLASSIFIER_COMPILED == 1
+#error "Cannot use full TensorFlow Lite with EON"
+#endif
+#endif // EI_CLASSIFIER_INFERENCING_ENGINE == EI_CLASSIFIER_TFLITE && EI_CLASSIFIER_USE_FULL_TFLITE == 1
+
+const char* ei_classifier_inferencing_categories[] = { "elephant", "gazelle", "idle" };
 
 typedef struct {
     uint16_t implementation_version;
@@ -158,13 +174,13 @@ typedef struct {
     float pre_cof;
 } ei_dsp_config_audio_syntiant_t;
 
-ei_dsp_config_spectral_analysis_t ei_dsp_config_384 = {
+ei_dsp_config_spectral_analysis_t ei_dsp_config_3 = {
     1,
     3,
     1.00000f,
     "low",
-    3.00000f,
-    6,
+    6.00000f,
+    2,
     128,
     3,
     0.10000f,

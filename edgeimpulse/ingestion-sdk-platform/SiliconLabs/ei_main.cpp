@@ -37,7 +37,7 @@ void ei_init(void)
     config_ctx.wifi_present = EiDevice.get_wifi_present_status_function();
     config_ctx.load_config = &ei_silabs_fs_load_config;
     config_ctx.save_config = &ei_silabs_fs_save_config;
-    config_ctx.list_files = NULL;    
+    config_ctx.list_files = NULL;
     config_ctx.read_buffer = EiDevice.get_read_sample_buffer_function();
 
 
@@ -55,6 +55,7 @@ void ei_init(void)
     ei_at_cmd_register("RUNIMPULSE", "Run the impulse", run_nn_normal);
     //ei_at_cmd_register("RUNIMPULSEDEBUG", "Run the impulse with extra debug output", run_nn_debug);
     ei_at_cmd_register("RUNIMPULSECONT", "Run the impulse continuously", run_nn_continuous_normal);
+    ei_at_cmd_register("RUNIMPULSESMOOTH", "Run the impulse continuously with smooth filter added", run_nn_continuous_smooth);
     ei_printf("Type AT+HELP to see a list of commands.\r\n> ");
 
     EiDevice.set_state(eiStateFinished);

@@ -28,6 +28,7 @@
 #include "ei_inertialsensor.h"
 #include "repl.h"
 #include "efr32mg12p332f1024gl125.h"
+#include "ei_classifier_porting.h"
 
 #include <cstdarg>
 #include "math.h"
@@ -518,24 +519,34 @@ static bool read_sample_buffer(size_t begin, size_t length, void(*data_fn)(uint8
     return retVal;
 }
 
+__attribute__((weak)) void timer_ev() {
+
+}
+
 void ei_led_state_control(void)
 {
     static char toggle = 0;
+    static uint64_t last_ev = ei_read_timer_ms();
 
+    timer_ev();
 
-    if(toggle) {
-        switch(ei_program_state)
-        {
-            case eiStateErasingFlash:   EI_LED_BLUE;    break;
-            case eiStateSampling:       EI_LED_YELLOW;  break;
-            case eiStateUploading:      EI_LED_RED;     break;
-            default: break;
-        }
-    }
-    else {
-        if(ei_program_state != eiStateFinished) {
-            EI_LED_OFF;
-        }
-    }
-    toggle ^= 1;
+    // if (ei_read_timer_ms() - last_ev < 400) return;
+
+    // last_ev = ei_read_timer_ms();
+
+    // if(toggle) {
+    //     switch(ei_program_state)
+    //     {
+    //         case eiStateErasingFlash:   EI_LED_BLUE;    break;
+    //         case eiStateSampling:       EI_LED_YELLOW;  break;
+    //         case eiStateUploading:      EI_LED_RED;     break;
+    //         default: break;
+    //     }
+    // }
+    // else {
+    //     if(ei_program_state != eiStateFinished) {
+    //         EI_LED_OFF;
+    //     }
+    // }
+    // toggle ^= 1;
 }
