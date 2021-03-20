@@ -520,22 +520,22 @@ static bool read_sample_buffer(size_t begin, size_t length, void(*data_fn)(uint8
 
 void ei_led_state_control(void)
 {
-    static char toggle = 0;
+    // static char toggle = 0;
 
 
-    if(toggle) {
-        switch(ei_program_state)
-        {
-            case eiStateErasingFlash:   EI_LED_BLUE;    break;
-            case eiStateSampling:       EI_LED_YELLOW;  break;
-            case eiStateUploading:      EI_LED_RED;     break;
-            default: break;
-        }
-    }
-    else {
-        if(ei_program_state != eiStateFinished) {
-            EI_LED_OFF;
-        }
-    }
-    toggle ^= 1;
+    // if(toggle) {
+    //     switch(ei_program_state)
+    //     {
+    //         case eiStateErasingFlash:   EI_LED_BLUE;    break;
+    //         case eiStateSampling:       EI_LED_YELLOW;  break;
+    //         case eiStateUploading:      EI_LED_RED;     break;
+    //         default: break;
+    //     }
+    // }
+    // else {
+    //     if(ei_program_state != eiStateFinished) {
+    //         EI_LED_OFF;
+    //     }
+    // }
+    // toggle ^= 1;
 }

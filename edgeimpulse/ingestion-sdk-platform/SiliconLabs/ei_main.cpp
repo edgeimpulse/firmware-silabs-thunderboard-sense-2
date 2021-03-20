@@ -37,7 +37,7 @@ void ei_init(void)
     config_ctx.wifi_present = EiDevice.get_wifi_present_status_function();
     config_ctx.load_config = &ei_silabs_fs_load_config;
     config_ctx.save_config = &ei_silabs_fs_save_config;
-    config_ctx.list_files = NULL;    
+    config_ctx.list_files = NULL;
     config_ctx.read_buffer = EiDevice.get_read_sample_buffer_function();
 
 
@@ -58,6 +58,8 @@ void ei_init(void)
     ei_printf("Type AT+HELP to see a list of commands.\r\n> ");
 
     EiDevice.set_state(eiStateFinished);
+
+    run_nn_continuous_normal();
 }
 
 void ei_main(void)

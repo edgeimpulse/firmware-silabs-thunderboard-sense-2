@@ -27,6 +27,18 @@
 #include "ei_microphone.h"
 #include "ei_device_silabs_efm32mg.h"
 
+#define KEYWORD                     "tinyml"
+#define KEYWORD_MIN_CONFIDENCE      0.7
+
+extern "C" void BOARD_rgbledSetColor(uint8_t red, uint8_t green, uint8_t blue);
+
+/* Constants --------------------------------------------------------------- */
+#define EI_LED_BLUE     BOARD_rgbledSetColor(58>>2, 180>>2, 205>>2)
+#define EI_LED_GREEN    BOARD_rgbledSetColor(164>>2, 198>>2, 9>>2)
+#define EI_LED_YELLOW   BOARD_rgbledSetColor(255>>2, 187>>2, 5>>2)
+#define EI_LED_RED      BOARD_rgbledSetColor(255>>2, 67>>2, 26>>2)
+#define EI_LED_OFF      BOARD_rgbledSetColor(0, 0, 0)
+
 extern "C" void send_classifier_output(const uint8_t *output);
 
 #if defined(EI_CLASSIFIER_SENSOR) && EI_CLASSIFIER_SENSOR == EI_CLASSIFIER_SENSOR_ACCELEROMETER
@@ -254,6 +266,8 @@ void run_nn_continuous(bool debug)
     run_classifier_init();
     ei_microphone_inference_start(EI_CLASSIFIER_SLICE_SIZE);
 
+    int last_heard_keyword = 1000;
+
     while (stop_inferencing == false) {
 
         bool m = ei_microphone_inference_record();
@@ -273,6 +287,12 @@ void run_nn_continuous(bool debug)
             break;
         }
 
+        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
+            if (strcmp(result.classification[ix].label, KEYWORD) == 0 && result.classification[ix].value >= KEYWORD_MIN_CONFIDENCE) {
+                last_heard_keyword = 0;
+            }
+        }
+
         if (++print_results >= (EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW >> 1)) {
             // print the predictions
             ei_printf("Predictions (DSP: %d ms., Classification: %d ms., Anomaly: %d ms.): \n",
@@ -282,9 +302,8 @@ void run_nn_continuous(bool debug)
                 ei_printf_float(result.classification[ix].value);
                 ei_printf("\r\n");
 
-                if(result.classification[ix].value > 0.8 && prev_classification != ix) {
-                    send_classifier_output((const uint8_t *)result.classification[ix].label);
-                    prev_classification = ix;
+                if (strcmp(result.classification[ix].label, KEYWORD) == 0 && result.classification[ix].value >= 0.7) {
+                    last_heard_keyword = 0;
                 }
             }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
@@ -294,6 +313,14 @@ void run_nn_continuous(bool debug)
 #endif
 
             print_results = 0;
+        }
+
+        last_heard_keyword++;
+        if (last_heard_keyword > 3) {
+            EI_LED_OFF;
+        }
+        else {
+            EI_LED_RED;
         }
 
         if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1)) {
