@@ -107,13 +107,12 @@ Want to stream the results of your impulse over BLE to your phone? No problem! T
     * Connect to the **Edge Impulse** device.
     * Subscribe to the `2A56` characteristic.
     * Decode the message as UTF8 (click on `HEX` in the top right corner in LightBlue to switch).
-1. Start classification via a serial terminal:
+1. Start classification via:
 
     ```
     $ edge-impulse-run-impulse
     ```
-   
-   Or on your phone by writing a `1` HEX value to the `0x2A58` resource on the device.
+
 1. You now see the classification results on your phone!
 
     <img src="images/IMG_3F7D69D91929-1.jpeg" height="500">
