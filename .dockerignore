@@ -1,5 +1,7 @@
 *.bak
 GNU ARM v7.2.1 - Default/firmware-silabs-thunderboard.*
+build
+ei-workspace/
 *.d
 *.o
 edgeimpulse/edge-impulse-sdk/classifier/ei_run_classifier_c.*

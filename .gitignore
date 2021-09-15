@@ -11,3 +11,4 @@ build-deploy-block.sh
 !.cproject
 !.project
 !protocol/bluetooth/lib/EFR32MG12P/GCC/binapploader.o
+.metadata/
