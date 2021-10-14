@@ -365,6 +365,7 @@ include:
   - path: edgeimpulse/model-parameters/anomaly_types.h
   - path: edgeimpulse/model-parameters/dsp_blocks.h
   - path: edgeimpulse/model-parameters/model_metadata.h
+  - path: edgeimpulse/model-parameters/model_variables.h
   - path: edgeimpulse/repl/at_base64.h
   - path: edgeimpulse/repl/at_cmd_interface.h
   - path: edgeimpulse/repl/at_cmds.h
