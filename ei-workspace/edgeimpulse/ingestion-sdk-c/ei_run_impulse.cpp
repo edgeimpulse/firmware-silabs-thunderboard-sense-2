@@ -139,6 +139,11 @@ void run_nn(bool debug)
         ei_printf("    anomaly score: ");
         ei_printf_float(result.anomaly);
         ei_printf("\r\n");
+        if (result.anomaly > 1.0 && prev_classification != EI_CLASSIFIER_LABEL_COUNT)
+        {
+            send_classifier_output((const uint8_t *)"anomaly");
+            prev_classification = EI_CLASSIFIER_LABEL_COUNT;
+        }
 #endif
 
         if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1) || (ble_stop_detect == -1)) {
@@ -237,6 +242,11 @@ void run_nn(bool debug)
         ei_printf("    anomaly score: ");
         ei_printf_float(result.anomaly);
         ei_printf("\r\n");
+        if (result.anomaly > 1.0 && prev_classification != EI_CLASSIFIER_LABEL_COUNT)
+        {
+            send_classifier_output((const uint8_t *)"anomaly");
+            prev_classification = EI_CLASSIFIER_LABEL_COUNT;
+        }
 #endif
 
         if(ei_user_invoke_stop() || (EiDevice.idle_wait() == -1) || (ble_stop_detect == -1)) {
@@ -312,6 +322,11 @@ void run_nn_continuous(bool debug)
             ei_printf("    anomaly score: ");
             ei_printf_float(result.anomaly);
             ei_printf("\r\n");
+            if (result.anomaly > 1.0 && prev_classification != EI_CLASSIFIER_LABEL_COUNT)
+            {
+                send_classifier_output((const uint8_t *)"anomaly");
+                prev_classification = EI_CLASSIFIER_LABEL_COUNT;
+            }
 #endif
 
             print_results = 0;

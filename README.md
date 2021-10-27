@@ -155,7 +155,7 @@ Want to stream the results of your impulse over BLE to your phone? No problem! T
 
     ![Classification results](images/IMG_3F7D69D91929-1.jpeg)
 
-> **Note:** Only classification results greater than 0.80 are transmitted.
+> **Note:** Only classification results greater than `0.80` or anomaly scores greater than `1.0` are transmitted.
 
 ## Updating the workspace
 

@@ -1,5 +1,5 @@
 #CRC Codes for initially generated config files -- do not modify!
-#Thu Oct 14 18:17:11 GMT 2021
+#Wed Oct 27 12:46:51 GMT 2021
 sl_bluetooth_config.h=495804802
 sl_device_init_lfxo_config.h=-802871145
 sl_sleeptimer_config.h=-1074849105
@@ -10,9 +10,9 @@ btconf/gatt_configuration.btconf=-2126226996
 sl_mx25_flash_shutdown_usart_config.h=-745910381
 sl_device_init_hfxo_config.h=999828789
 psa_crypto_config.h=-715200899
-dmadrv_config.h=-894158991
-sl_power_manager_config.h=-1652833008
 sl_bluetooth_advertiser_config.h=1195041145
+sl_power_manager_config.h=-1652833008
+dmadrv_config.h=-894158991
 sl_iostream_usart_vcom_config.h=1461939972
 sl_ccs811_config.h=908197935
 spidrv_config.h=1282557349
