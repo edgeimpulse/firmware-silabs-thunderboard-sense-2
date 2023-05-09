@@ -30,7 +30,6 @@
 
 //#define ei_printf(...) printf(__VA_ARGS__)
 extern void ei_printf(const char *format, ...);
-#define ei_putc(c) putchar(c)
 
 /** Number of sensors used */
 #define EI_DEVICE_N_SENSORS		2
@@ -94,6 +93,7 @@ bool ei_user_invoke_stop(void);
 void ei_write_string(char *data, int length);
 void ei_printfloat(int n_decimals, int n, ...);
 void ei_printf_float(float f);
+void ei_putchar(char c);
 
 /* Reference to object for external usage ---------------------------------- */
 extern EiDeviceEfm32Mg EiDevice;

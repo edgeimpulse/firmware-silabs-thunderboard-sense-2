@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import glob
-import os
+from pathlib import Path
 import yaml
 
 # user edit section
@@ -67,16 +67,18 @@ source = [
 
 # end user edit section
 
-apath = "./ei-workspace/"
-includes = [ os.path.join(apath,e)  for e in includes ]
-exclude_folders_list = [ os.path.join(apath,e)  for e in exclude_folders_list ]
-source = [ os.path.join(apath,e)  for e in source ]
+slcp_file = "firmware-silabs-thunderboard-sense-2.slcp"
+workspace_path = "ei-workspace/"
+apath = Path(workspace_path)
+includes = [ Path(apath, e)  for e in includes ]
+exclude_folders_list = [ Path(apath, e)  for e in exclude_folders_list ]
+source = [ Path(apath, e)  for e in source ]
 
 def filter_files(file_list, filter_list):
     temp = []
     for name in file_list:
         for exc in filter_list:
-            if exc in name:
+            if str(exc) in str(name):
                 temp.append(name)
 
     for elem in temp:
@@ -85,55 +87,55 @@ def filter_files(file_list, filter_list):
 
     return file_list
 
-def recursive_file_files(path, file_ext_list):
+def recursive_find_files(path, file_ext_list):
     temp = []
     for ext in file_ext_list:
-       temp = temp + glob.glob(path + '**/' + ext, recursive=True)
+       temp = temp + list(path.rglob(ext))
 
     return temp
 
 def wild_find_files(path):
-    return glob.glob(path, recursive=False)
+    return list(path.glob('*'))
 
 header_ext = [ "*.h", "*.hpp"]
 source_ext = [ "*.c", "*.cpp", "*.cc", "*.cxx"]
 
-header_files = recursive_file_files(apath, header_ext)
+header_files = recursive_find_files(Path(apath), header_ext)
 header_files = filter_files(header_files, exclude_folders_list)
-header_files = [ name.replace(apath, "", 1) for name in header_files ]
+header_files = [ Path(*name.parts[1:]) for name in header_files ]
 header_files.sort()
 
 ##header_folders = filter_files(includes, exclude_folders_list)
-header_folders = [ name.replace(apath, "", 1) for name in includes ]
+header_folders = [ Path(*name.parts[1:]) for name in includes ]
 header_folders.sort()
 
 source_files = []
 for source_list in source:
     source_files = source_files + wild_find_files(source_list);
 
-source_files = recursive_file_files(apath, source_ext)
+source_files = recursive_find_files(apath, source_ext)
 source_files = filter_files(source_files, exclude_folders_list)
-source_files = [ name.replace(apath, "", 1) for name in source_files ]
+source_files = [ Path(*name.parts[1:]) for name in source_files ]
 source_files.sort()
 
 hh = []
 for match in header_folders:
     #print("- {path: " + match +"}")
-    hh.append({'path' : match})
+    hh.append({'path' : str(match)})
 
 aa = []
 for match in header_files:
     #print("   - {path: " + match +"}")
-    aa.append({'path' : match})
+    aa.append({'path' : str(match)})
 hh.append({'path': '', 'file_list': aa})
 
 
 ss = []
 for match in source_files:
     #print("- {path: " + match +"}")
-    ss.append({'path':match})
+    ss.append({'path': str(match)})
 
-fname = "ei-workspace/firmware-silabs-thunderboard-sense-2.slcp"
+fname = Path(apath, slcp_file)
 stream = open(fname, 'r')
 dct = yaml.load(stream, yaml.SafeLoader)
 

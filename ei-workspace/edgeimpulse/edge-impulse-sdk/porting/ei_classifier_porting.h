@@ -1,23 +1,18 @@
-/* Edge Impulse inferencing library
- * Copyright (c) 2021 EdgeImpulse Inc.
+/*
+ * Copyright (c) 2022 EdgeImpulse Inc.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS
+ * IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 #ifndef _EI_CLASSIFIER_PORTING_H_
@@ -43,12 +38,20 @@ typedef enum {
     EI_IMPULSE_ONLY_SUPPORTED_FOR_IMAGES = -9,
     EI_IMPULSE_UNSUPPORTED_INFERENCING_ENGINE = -10,
     EI_IMPULSE_OUT_OF_MEMORY = -11,
-    EI_IMPULSE_NOT_SUPPORTED_WITH_I16 = -12,
     EI_IMPULSE_INPUT_TENSOR_WAS_NULL = -13,
     EI_IMPULSE_OUTPUT_TENSOR_WAS_NULL = -14,
     EI_IMPULSE_SCORE_TENSOR_WAS_NULL = -15,
     EI_IMPULSE_LABEL_TENSOR_WAS_NULL = -16,
-    EI_IMPULSE_TENSORRT_INIT_FAILED = -17
+    EI_IMPULSE_TENSORRT_INIT_FAILED = -17,
+    EI_IMPULSE_DRPAI_INIT_FAILED = -18,
+    EI_IMPULSE_DRPAI_RUNTIME_FAILED = -19,
+    EI_IMPULSE_DEPRECATED_MODEL = -20,
+    EI_IMPULSE_LAST_LAYER_NOT_AVAILABLE = -21,
+    EI_IMPULSE_INFERENCE_ERROR = -22,
+    EI_IMPULSE_AKIDA_ERROR = -23,
+    EI_IMPULSE_INVALID_SIZE = -24,
+    EI_IMPULSE_ONNX_ERROR = -25,
+    EI_IMPULSE_MEMRYX_ERROR = -26,
 } EI_IMPULSE_ERROR;
 
 /**
@@ -133,6 +136,14 @@ void ei_free(void *ptr);
 #endif
 #endif
 
+#ifndef EI_PORTING_ESPRESSIF
+#if defined(CONFIG_IDF_TARGET_ESP32) && EI_PORTING_ARDUINO == 0
+#define EI_PORTING_ESPRESSIF      1
+#else
+#define EI_PORTING_ESPRESSIF     0
+#endif
+#endif
+
 #ifndef EI_PORTING_MBED
 #ifdef __MBED__
 #define EI_PORTING_MBED      1
@@ -154,6 +165,14 @@ void ei_free(void *ptr);
 #define EI_PORTING_SILABS      1
 #else
 #define EI_PORTING_SILABS      0
+#endif
+#endif
+
+#ifndef EI_PORTING_RASPBERRY
+#ifdef PICO_BOARD
+#define EI_PORTING_RASPBERRY      1
+#else
+#define EI_PORTING_RASPBERRY      0
 #endif
 #endif
 

@@ -378,7 +378,7 @@ c_callback_read_sample_buffer EiDeviceEfm32Mg::get_read_sample_buffer_function(v
 void ei_write_string(char *data, int length)
 {
     for( int i = 0; i < length; i++) {
-        putchar(*(data++));
+        ei_putchar(*(data++));
     }
 }
 
@@ -444,6 +444,11 @@ void ei_printf_float(float f)
         *(c) = '\0';
         ei_write_string(s, c - s);
     }
+}
+
+void ei_putchar(char c)
+{
+    ei_printf("%c", c);
 }
 
 /**
