@@ -1,5 +1,5 @@
 #CRC Codes for initially generated config files -- do not modify!
-#Tue May 09 11:42:04 GMT 2023
+#Tue May 09 13:51:14 GMT 2023
 sl_bluetooth_config.h=495804802
 sl_device_init_lfxo_config.h=-802871145
 sl_sleeptimer_config.h=-1074849105
