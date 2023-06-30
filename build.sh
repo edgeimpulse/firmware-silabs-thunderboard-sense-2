@@ -1,98 +1,89 @@
 #!/bin/bash
+
+# Edge Impulse ingestion SDK
+# Copyright (c) 2022 EdgeImpulse Inc.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 set -e
 
+SLCP_FILES=(*.slcp)
+PROJECT_FILE=${SLCP_FILES[0]}
+
+echo "Using project file: ${PROJECT_FILE}"
+
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-WORKSPACE=${SCRIPTPATH}/ei-workspace
-TEMPDIR=/tmp/build-$(date +%s)
-FILE=firmware-silabs-thunderboard-sense-2.slcp
+PROJECT_NAME=$(grep project_name ${PROJECT_FILE} | cut -d':' -f2 | xargs)
+SLC_BIN="slc"
 
-COMMAND=$1
-STUDIO_PATH=$2
+for i in "$@"; do
+  case $i in
+    -b|--build)
+      BUILD=1
+      shift # past argument
+      ;;
+    -c|--clean)
+      CLEAN=1
+      shift # past argument
+      ;;
+    -f|--flash)
+      FLASH=1
+      shift # past argument
+      ;;
+    -p|--purge)
+      PURGE=1
+      shift # past argument
+      ;;
+    -s=*|--slc=*)
+      SLC_BIN="${i#*=}"
+      shift # past argument=value
+      ;;
+    *)
+      shift # past argument
+      ;;
+  esac
+done
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    SEDCMD="sed -i '' -e"
-    LC_CTYPE=C
-    LANG=C
-else
-    SEDCMD="sed -i -e"
+# remove all generated files (useful to recreate the project from scratch)
+if [ ! -z ${PURGE} ];
+then
+    rm -rf autogen/
+    rm -rf build/
+    rm -rf gecko_sdk_?.?.?/
+    rm -f ${PROJECT_NAME}.Makefile
+    rm -f ${PROJECT_NAME}.project.mak
+    rm -f ${PROJECT_NAME}.slps
+elif [ ! -z ${CLEAN} ];
+then
+    if [ -f ${PROJECT_NAME}.Makefile ];
+    then
+        make -f ${PROJECT_NAME}.Makefile clean
+    fi
 fi
 
-prepare-slcp()
-{
-    cd ${SCRIPTPATH}
-    python3 update-slcp.py
-}
+if [ ! -z ${BUILD} ];
+then
+    ${SLC_BIN} generate ${PROJECT_FILE} --no-copy --toolchain=gcc --output-type=makefile
+    make -j -f ${PROJECT_NAME}.Makefile
+fi
 
-prepare-workspace() {
-    cd $1
-    rm -rf edgeimpulse/mbedtls_hmac_sha256_sw
-    sed -i -e "s/-Os/-O3/g" *project.mak
-}
-
-get-platform()
-{
-    echo $(uname -s 2>/dev/null)
-}
-
-download-dependencies()
-{
-    echo "Checking dependencies..."
-
-    PLATFORM=$(get-platform)
-    if [[ ${PLATFORM} == "Darwin" ]]; then
-        PYTHON3=$(which python3.6 || true)
-        if [ ! -x "$PYTHON3" ]; then
-            echo "Cannot find 'python3.6' in your PATH. Install Python 3.6.8 (exactly this version) before you continue."
-            echo "Installation instructions: https://www.python.org/downloads/release/python-368/"
-            exit 1
-        fi
-
-        PYTHON3=$(python3.6 -V 2>/dev/null)
-        if [[ ! "$PYTHON3" =~ "3.6.8" ]]; then
-            echo "Invalid version for 'python3.6'. Install Python 3.6.8 (exactly this version) before you continue."
-            echo "Installation instructions: https://www.python.org/downloads/release/python-368/"
-            exit 1
-        fi
-    fi
-
-    echo "Checking PyYAML.."
-    cd ${SCRIPTPATH}
-    PYYAML=$(python3 -m pip list --format=legacy | grep -i yaml || true 2>/dev/null)
-    if [ -z "$PYYAML" ]; then
-        echo "Installing PyYAML"
-        python3 -m pip install pyyaml
-    fi
-    echo "Checking PyYAML OK"
-
-    echo "Checking dependencies OK"
-}
-
-generate-project()
-{
-    export ARM_GCC_DIR="${STUDIO_PATH:=/opt/SimplicityStudio_v5}/developer/toolchains/gnu_arm/${GNU_TOOLCHAIN_VERSION:=10.2_2020q4}"
-    slc generate -s "${STUDIO_PATH:=/opt/SimplicityStudio_v5}/developer/sdks/gecko_sdk_suite/v${GECKO_SDK_VERSION:=3.2}/" -p ${WORKSPACE} -cp --with brd4166a -tlcn gcc
-}
-
-if [ "$COMMAND" == "--build" ]; then
-    echo "Building "${FILE}"..."
-    download-dependencies
-    prepare-workspace ${WORKSPACE}
-    cd ${WORKSPACE} && make -j -f *.Makefile
-elif [ "$COMMAND" == "--update" ]; then
-    echo "Updating workspace..."
-    prepare-slcp
-    generate-project
-    prepare-workspace ${WORKSPACE}
-    echo "Updating workspace done"
-elif [ "$COMMAND" == "--flash" ]; then
-    echo "Flashing device"
-    JLinkExe -CommandFile CommandFile.jlink
-    cd ..
-elif [ "$COMMAND" == "--clean" ]; then
-    cd ${WORKSPACE}
-    make -j -f *.Makefile clean
-    cd ..
-else
-    echo "Invalid command: $COMMAND"
-    exit 1
+if [ ! -z ${FLASH} ];
+then
+    commander flash build/debug/${PROJECT_NAME}.hex
 fi

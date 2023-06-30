@@ -1,0 +1,144 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: firmware-thunderboard-sense-2
+label: firmware-thunderboard-sense-2
+description: This is Edge Impulse firmware for the Silicon Labs Thunderboard Sense
+  2 development board, which supports ingestion, remote management and inferencing.
+category: EdgeImpulse|Firmware|Example
+package: platform
+quality: production
+source:
+- {path: firmware-sdk/at-server/ei_at_parser.cpp, folder: firmware-sdk/at-server}
+- {path: firmware-sdk/at-server/ei_at_server.cpp, folder: firmware-sdk/at-server}
+- {path: firmware-sdk/at-server/ei_at_command_set.cpp, folder: firmware-sdk/at-server}
+- {path: firmware-sdk/at-server/ei_at_server_singleton.cpp, folder: firmware-sdk/at-server}
+- {path: firmware-sdk/at_base64_lib.cpp, folder: firmware-sdk}
+- {path: firmware-sdk/ei_device_lib.cpp, folder: firmware-sdk}
+- {path: firmware-sdk/ei_fusion.cpp, folder: firmware-sdk}
+- {path: firmware-sdk/sensor_aq.cpp, folder: firmware-sdk}
+- {path: src/ble.c, folder: src}
+- {path: src/main.cpp, folder: src}
+- {path: src/ei_sampler.cpp, folder: src}
+- {path: src/ei_at_handlers.cpp, folder: src}
+- {path: src/ei_device_tb2.cpp, folder: src}
+- {path: src/flash_memory.cpp, folder: src}
+- {path: src/drivers/MX25R3235/mx25flash_spi.c, folder: src/drivers/MX25R3235}
+- {path: src/drivers/rgbled_brd4166.c, folder: src/drivers}
+- {path: src/inference/ei_run_audio_impulse.cpp, folder: src/inference}
+- {path: src/inference/ei_run_fusion_impulse.cpp, folder: src/inference}
+- {path: src/sensors/ei_hall_sensor.cpp, folder: src/sensors}
+- {path: src/sensors/ei_inertial_sensor.cpp, folder: src/sensors}
+- {path: src/sensors/ei_microphone.cpp, folder: src/sensors}
+- {path: src/libs/QCBOR/src/UsefulBuf.c, folder: src/libs/QCBOR/src}
+- {path: src/libs/QCBOR/src/ieee754.c, folder: src/libs/QCBOR/src}
+- {path: src/libs/QCBOR/src/qcbor_decode.c, folder: src/libs/QCBOR/src}
+- {path: src/libs/QCBOR/src/qcbor_encode.c, folder: src/libs/QCBOR/src}
+- {path: src/libs/sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.cpp, folder: src/libs/sensor_aq_mbedtls}
+include:
+- path: ''
+  file_list:
+  - {path: firmware-sdk/at-server/ei_at_command_set.h, folder: firmware-sdk/at-server}
+  - {path: firmware-sdk/at-server/ei_at_history.h, folder: firmware-sdk/at-server}
+  - {path: firmware-sdk/at-server/ei_at_parser.h, folder: firmware-sdk/at-server}
+  - {path: firmware-sdk/at-server/ei_at_server.h, folder: firmware-sdk/at-server}
+  - {path: firmware-sdk/at-server/ei_line_buffer.h, folder: firmware-sdk/at-server}
+  - {path: firmware-sdk/jpeg/encode_as_jpg.h, folder: firmware-sdk/jpeg}
+  - {path: firmware-sdk/jpeg/jpeg.h, folder: firmware-sdk/jpeg}
+  - {path: firmware-sdk/jpeg/JPEGENC.h, folder: firmware-sdk/jpeg}
+  - {path: firmware-sdk/at_base64_lib.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_camera_interface.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_config_types.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_device_info_lib.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_device_interface.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_device_lib.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_device_memory.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_fusion.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_image_lib.h, folder: firmware-sdk}
+  - {path: firmware-sdk/ei_image_nn.h, folder: firmware-sdk}
+  - {path: firmware-sdk/sensor_aq.h, folder: firmware-sdk}
+- path: src
+  file_list:
+  - {path: ble.h, folder: src}
+  - {path: ei_sampler.h, folder: src}
+  - {path: ei_at_handlers.h, folder: src}
+  - {path: ei_device_tb2.h, folder: src}
+  - {path: flash_memory.h, folder: src}
+  - {path: libs/QCBOR/src/ieee754.h, folder: src/libs/QCBOR/src}
+- path: src/drivers
+  file_list:
+  - {path: rgbled_brd4166.h, folder: src/drivers}
+  - {path: MX25R3235/mx25flash_spi.h, folder: src/drivers/MX25R3235}
+- path: src/inference
+  file_list:
+  - {path: ei_run_impulse.h, folder: src/inference}
+- path: src/sensors
+  file_list:
+  - {path: ei_fusion_sensors_config.h, folder: src/sensors}
+  - {path: ei_hall_sensor.h, folder: src/sensors}
+  - {path: ei_inertial_sensor.h, folder: src/sensors}
+  - {path: ei_microphone.h, folder: src/sensors}
+- path: src/libs
+  file_list:
+  - {path: sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.h, folder: src/libs/sensor_aq_mbedtls}
+  - {path: QCBOR/inc/qcbor.h, folder: src/libs/QCBOR/inc}
+  - {path: QCBOR/inc/UsefulBuf.h, folder: src/libs/QCBOR/inc}
+- {path: src/libs/QCBOR/inc}
+sdk: {id: gecko_sdk, version: 4.0.2}
+toolchain_settings:
+- {value: -Wno-unused-parameter, option: gcc_compiler_option}
+- {value: -Wno-missing-field-initializers, option: gcc_compiler_option}
+component:
+- {id: iostream_retarget_stdio}
+- {id: bluetooth_feature_gatt_server}
+- {id: brd4166a}
+- {id: si1133_driver}
+- {id: simple_timer}
+- {id: iostream_usart_core}
+- {id: EFR32MG12P332F1024GL125}
+- {id: gatt_configuration}
+- {id: bmp280_driver}
+- {id: device_init}
+- {id: gpiointerrupt}
+- {id: mbedtls_hash}
+- instance: [led_rgb]
+  id: simple_rgb_pwm_led
+- {id: i2cspm_core}
+- {id: custom_edge_impulse_library}
+- {id: sl_system}
+- {id: bluetooth_feature_connection}
+- {id: bluetooth_feature_advertiser}
+- {id: si7210_driver}
+- {id: ccs811_driver}
+- instance: [vcom]
+  id: iostream_usart
+- {id: spidrv_core}
+- {id: si70xx_driver}
+- {id: mic_i2s_driver}
+- {id: bluetooth_feature_system}
+- {id: toolchain_gcc}
+- {id: bootloader_interface}
+- {id: app_assert}
+- {id: imu_driver}
+- {id: sleeptimer}
+define:
+- {name: DEBUG_EFM}
+- {name: TF_LITE_STATIC_MEMORY}
+- {name: EI_SENSOR_AQ_STREAM, value: FILE}
+- {name: EIDSP_USE_CMSIS_DSP, value: '1'}
+- {name: EIDSP_LOAD_CMSIS_DSP_SOURCES, value: '1'}
+- {name: EI_CLASSIFIER_TFLITE_ENABLE_CMSIS_NN, value: '1'}
+- {name: EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW, value: '3'}
+- {name: EIDSP_QUANTIZE_FILTERBANK, value: '0'}
+- {name: EFR32MG12P332F1024GL125, value: '1'}
+configuration:
+- {name: SL_STACK_SIZE, value: '32768'}
+- {name: SL_HEAP_SIZE, value: '53248'}
+- {name: SL_BT_CONFIG_MAX_CONNECTIONS, value: '4'}
+- {name: SL_BT_CONFIG_USER_ADVERTISERS, value: '1'}
+- {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+- {name: SL_BOARD_ENABLE_SENSOR_MICROPHONE, value: '1'}
+- {name: SL_BOARD_ENABLE_SENSOR_IMU, value: '1'}
+- {name: SL_BOARD_DISABLE_MEMORY_SPI, value: '0'}
+ui_hints: {}
+component_path:
+- {path: ei-model}
+

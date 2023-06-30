@@ -2,169 +2,142 @@
 
 [Edge Impulse](https://www.edgeimpulse.com) enables developers to create the next generation of intelligent device solutions with embedded Machine Learning. This repository contains the Edge Impulse firmware for the Silicon Labs Thunderboard Sense 2 development board. This device supports all Edge Impulse device features, including ingestion, remote management and inferencing.
 
-> **Note:** Do you just want to use this development board with Edge Impulse? No need to build this firmware. See the instructions [here](https://docs.edgeimpulse.com/docs/silabs-thunderboard-sense-2) for a prebuilt image and instructions. Or, you can use the [data forwarder](https://docs.edgeimpulse.com/docs/cli-data-forwarder) to capture data from any sensor.
+> **Note:** Do you just want to use this development board with Edge Impulse? No need to build this firmware. See the instructions [here](https://docs.edgeimpulse.com/docs/development-platforms/officially-supported-mcu-targets/silabs-thunderboard-sense-2) for a prebuilt image and instructions. Or, you can use the [data forwarder](https://docs.edgeimpulse.com/docs/cli-data-forwarder) to capture data from any sensor.
+
+This firmware has a [BLE capabilities](https://docs.edgeimpulse.com/docs/development-platforms/officially-supported-mcu-targets/silabs-thunderboard-sense-2#bluetooth-demo) built-in that allow you to start/stop inference and see its results on the mobile phone.
+
+## Source code organization
+
+* If you want to deploy your model (exported as a `Simplicity Studio Component` from Studio), extract the exported `zip` file content into:
+
+    `ei-model`
+
+### Reporting issues
+
+This repository is a snapshot of the Edge Impulse internal code base, therefore PRs won't be merged. If you find any bugs or want to contribute use our [Developer Forum](https://forum.edgeimpulse.com/) to submit them.
 
 ## Requirements
 
 ### Hardware
 
-* [SiLabs Thunderboard Sense 2](https://www.silabs.com/development-tools/thunderboard/thunderboard-sense-two-kit) development board.
+* SiLabs Thunderboard Sense 2 development board ([documentation](https://www.silabs.com/documents/public/user-guides/ug309-sltb004a-user-guide.pdf))
+> :warning: This board is **Not recommended for new designs**. For a replacement, see the [EFR32xG24 Dev Kit](https://www.silabs.com/development-tools/wireless/efr32xg24-dev-kit) :warning:
 
 ### Software
 
-Either:
+For a local build using command line tools:
+* [SLC CLI Tools](https://www.silabs.com/documents/public/user-guides/ug520-software-project-generation-configuration-with-slc-cli.pdf)
+* [GNU Arm Embedded Toolchain 10-2020-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+* [Gecko SDK v4.0.2](https://github.com/SiliconLabs/gecko_sdk/tree/v4.0.2)
 
-* [Simplicity Studio 5](https://www.silabs.com/developers/simplicity-studio) to build with an IDE. You'll also need:
-    * Python 3.6.8 or higher.
-    * Java 64 bit JVM 11 or higher:
-        - available at [Amazon Correto](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) or [releases page](https://github.com/corretto/corretto-11/releases).
-* Or, [GNU Arm Embedded Toolchain 10](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) to build from the command line on Linux or macOS.
-* Or, [Docker Desktop](https://www.docker.com/products/docker-desktop) to build using Docker.
+For build using Docker container:
+* [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-## Building the application
+For build using Simplicity Studio v5:
+* [Simplicity Studio 5](https://www.silabs.com/developers/simplicity-studio) with Gecko SDK 4.0.2
 
-First, clone or [download](https://github.com/edgeimpulse/firmware-silabs-thunderboard-sense-2/archive/refs/heads/master.zip) this repository:
+## How to build
 
-```
-$ git clone https://github.com/edgeimpulse/firmware-silabs-thunderboard-sense-2
-```
+### Local build using command line tools
 
-Then, follow the build instructions for your environment below.
-
-## Building using Simplicity Studio 5
-
-### Importing the project
-
-1.  Open Simplicity IDE and install the Gecko SDK 3.2.x.
-1.  Create a new project via **File > New > Silicon Labs Project Wizard...**
-1.  In the New Project Wizard select **Simplicity Studio > Silicon Labs MCU Project** and click **Next**
-1.  Under 'board' select **Thunderboard Sense 2**.
-1.  Select the correct SDK you installed in #1 and click **Next**.
-
-    ![Toolchain and SDK selection](images/target-sdk-toolchain-selection.png)
-
-1.  Select **Empty C++ Program** and click **Next**.
-
-    ![Empty C++ Program](images/example-project-selection.png)
-
-1.  Name the project `firmware-silabs-thunderboard-sense-2` (exactly this) and make sure **Copy contents** is selected before clicking **Finish**.
-
-    ![Project configuration](images/project-configuration.png)
-
-1. Under 'Project Explorer' select all files, except for *Includes* and delete them:
-
-    ![Delete all files](images/delete-files.png)
-
-1. Then, navigate to the `firmware-silabs-thunderboard-sense-2/ei-workspace` folder (in this repository), and drag all files and folders into the 'Project explorer' window in Simplicity Studio.
-1. When prompted select **Copy files and folders** for this operation.
-1. Then close, and reopen the project via: **Project > Close Project**, then **Project > Open Project**.
-1. Double-click on `firmware-silabs-thunderboard-sense-2.slcp` to show the Simplicity Configurator.
-1. Edit 'Project Generators' and disable 'IARM EMBEDDED WORKBENCH PROJECT':
-
-    ![Disable IAR](images/no-iar.png)
-
-1. Click **Force Generation** to regenerate all links and include paths.
-
-    ![Force generation](images/project-details.png)
-
-1. You can now build your project, by right-clicking on the project name in the 'Project explorer' and choosing **Build Project**.
-1. 🚀
-
-### Building and flashing the firmware
-
-1. In Simplicity Studio v5, select **Project > Build Project** to build the firmware.
-1. Then, right click on the development board in the *Debug adapters* section of Simplicity Studio and select **Upload application**.
-
-    ![](images/upload_application.png)
-
-1. Under *Application image path* select the `GNU ARM v10.2.1 - Default/firmware-silabs-thunderboard-sense-2.bin` file and click **OK** to flash.
-
-## Building from the command line
-
-Building from the command line is only supported on macOS and Linux.
-
-### Building the firmware
-
-1. Set the `ARM_GCC_DIR` environment variable to a place where you've installed the GNU Arm Embedded Toolchain 10:
+1. Clone the [Gecko SDK v.4.0.2](https://github.com/edgeimpulse/gecko_sdk.git)
 
     ```
-    $ export ARM_GCC_DIR=~/toolchains/gcc-arm-none-eabi-10-2020-q4-major/
+    git clone -b ei-gsdk_4.0 https://github.com/edgeimpulse/gecko_sdk.git
     ```
 
-1. Build the application:
+1. Install [SLC CLI Tools (see p. 2.1)](https://www.silabs.com/documents/public/user-guides/ug520-software-project-generation-configuration-with-slc-cli.pdf)
+1. Configure `SLC CLI` to point the location of the `Gecko SDK` and sign the SDK
 
     ```
+    slc configuration --sdk /home/user/gecko_sdk/
+    slc signature trust --sdk /home/user/gecko_sdk/
+    ```
+
+1. Also configure the default location of your toolchain, eg.
+
+    ```
+    slc configuration --gcc-toolchain /opt/toolchains/gcc-arm-none-eabi-10-2020-q4-major
+    ```
+
+1. Clone this repository and build
+
+    ```
+    git clone git@github.com:edgeimpulse/firmware-silabs-thunderboard-sense-2.git
+    cd firmware-silabs-thunderboard-sense-2/
     ./build.sh --build
     ```
 
-### Flashing the firmware
+### Using Docker
 
-You can either drag `./ei-workspace/build/debug/firmware-silabs-thunderboard-sense-2.bin` to the `TB004` mass-storage device (mounts as a USB flash drive), or flash with the JLink tools via:
+1. Clone this repository
+
+    ```
+    git clone git@github.com:edgeimpulse/firmware-silabs-thunderboard-sense-2.git
+    cd firmware-silabs-thunderboard-sense-2/
+    ```
+
+1. Build the container
+
+    ```
+    $ docker build -t edge-impulse-silabs-thunderboard-sense-2 .
+    ```
+
+1. Build the application
+
+    ```
+    docker run --rm -v $PWD:/app edge-impulse-silabs-thunderboard-sense-2 /bin/bash build.sh --build
+    ```
+
+### Using Simplicity Studio v5
+
+1. Install [Simplicity Studio v5](https://www.silabs.com/developers/simplicity-studio) and [Gecko SDK v4.0.2](https://github.com/SiliconLabs/gecko_sdk)
+1. Clone this repository
+1. In the Simplicity Studio, choose `File -> Import`
+
+    ![Project import](doc/import1.png)
+
+1. Browse to the directory with cloned repository and select `firmware-silabs-thunderboard-sense-2` project
+
+    ![Project import](doc/import2.png)
+
+1. On the next step, you will see error that the device part of the build configuration cannot be resolved, ingore it and go to next step
+
+    ![Build Configurations of the Project](doc/import3.png)
+
+1. In the `Boards` section, select (type in) `BRD4166A` and make sure to select Gecko SDK 4.0.2
+
+    ![Reconstruct Build Configurations](doc/import4.png)
+
+1. Choose a project name in your workspace and finish
+
+    ![Project Configuration](doc/import5.png)
+
+1. We have to make a small tweak. In the `Project Explorer` panel, right click on the `ei-model` directory and choose `Delete`
+
+    ![Project Explorer](doc/import6.png)
+
+1. Confirm that only workspace link will be removed, the target will remain unchanged
+
+    ![Delete Resources](doc/import7.png)
+
+1. Now, double click on the `firmware-thunderboard-sense-2.slcp` file to open project configuration
+
+    ![Project Explorer](doc/import8.png)
+
+1. In the new window click `Force Regeneration`
+
+    ![Project Configuration](doc/import9.png)
+
+1. Build the project
+
+    ![Project import](doc/import10.png)
+
+
+## How to flash the board
+
+You can either drag `./build/debug/firmware-silabs-thunderboard-sense-2.bin` to the `TB004` mass-storage device (mounts as a USB flash drive), or flash with the [Simplicity Commander](https://community.silabs.com/s/article/simplicity-commander?language=en_US) tool via:
 
 ```
 $ ./build.sh --flash
 ```
-
-## Building with Docker
-
-### Building the firmware
-
-1. Build the container:
-
-    ```
-    $ docker build -t thunderboard-sense-2-build .
-    ```
-
-1. Build the application:
-
-    **macOS, Linux**
-
-    ```
-    $ docker run --rm -u $UID -v $PWD:/app:delegated thunderboard-sense-2-build /bin/bash build.sh --build
-    ```
-
-    **Windows**
-
-    ```
-    $ docker run --rm -v "%cd%":/app:delegated thunderboard-sense-2-build /bin/bash build.sh --build
-    ```
-
-#### Flashing the firmware
-
-You can either drag `./ei-workspace/build/debug/firmware-silabs-thunderboard-sense-2.bin` to the `TB004` mass-storage device (mounts as a USB flash drive), or flash with the JLink tools via:
-
-```
-$ ./build.sh --flash
-```
-
-## Streaming results over BLE to your phone
-
-Want to stream the results of your impulse over BLE to your phone? No problem! To do so:
-
-1. Open a BLE scanner on your phone (tested with LightBlue on iOS) and :
-    * Connect to the **Edge Impulse** device.
-    * Subscribe to the `2A56` characteristic.
-    * Decode the message as UTF8 (click on `HEX` in the top right corner in LightBlue to switch).
-1. Start classification via:
-
-    ```
-    $ edge-impulse-run-impulse
-    ```
-
-1. You now see the classification results on your phone!
-
-    ![Classification results](images/IMG_3F7D69D91929-1.jpeg)
-
-> **Note:** Only classification results greater than `0.80` or anomaly scores greater than `1.0` are transmitted.
-
-## Updating the workspace
-
-When building from command-line or Docker, and files have been added/removed from the workspace then it may be required to re-generate/update the workspace.
-To do so, run the following command.
-
-```
-$ docker build -t thunderboard-sense-2-build .
-$ docker run --rm -u $UID -v $PWD:/app:delegated thunderboard-sense-2-build /bin/bash build.sh --update
-```
-
-This will update `.slcp` and makefiles accordingly
