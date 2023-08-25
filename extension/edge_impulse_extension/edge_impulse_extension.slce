@@ -1,0 +1,9 @@
+id: edge_impulse_extension
+label: Edge Impulse Model
+version: 1.0.0
+description: Extension consists of the Edge Impulse Model
+component_path:
+- path: ei-model
+sdk:
+  id: gecko_sdk
+  version: 4.0.2

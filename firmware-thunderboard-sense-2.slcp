@@ -7,80 +7,80 @@ category: EdgeImpulse|Firmware|Example
 package: platform
 quality: production
 source:
-- {path: firmware-sdk/at-server/ei_at_parser.cpp, folder: firmware-sdk/at-server}
-- {path: firmware-sdk/at-server/ei_at_server.cpp, folder: firmware-sdk/at-server}
-- {path: firmware-sdk/at-server/ei_at_command_set.cpp, folder: firmware-sdk/at-server}
-- {path: firmware-sdk/at-server/ei_at_server_singleton.cpp, folder: firmware-sdk/at-server}
-- {path: firmware-sdk/at_base64_lib.cpp, folder: firmware-sdk}
-- {path: firmware-sdk/ei_device_lib.cpp, folder: firmware-sdk}
-- {path: firmware-sdk/ei_fusion.cpp, folder: firmware-sdk}
-- {path: firmware-sdk/sensor_aq.cpp, folder: firmware-sdk}
-- {path: src/ble.c, folder: src}
-- {path: src/main.cpp, folder: src}
-- {path: src/ei_sampler.cpp, folder: src}
-- {path: src/ei_at_handlers.cpp, folder: src}
-- {path: src/ei_device_tb2.cpp, folder: src}
-- {path: src/flash_memory.cpp, folder: src}
-- {path: src/drivers/MX25R3235/mx25flash_spi.c, folder: src/drivers/MX25R3235}
-- {path: src/drivers/rgbled_brd4166.c, folder: src/drivers}
-- {path: src/inference/ei_run_audio_impulse.cpp, folder: src/inference}
-- {path: src/inference/ei_run_fusion_impulse.cpp, folder: src/inference}
-- {path: src/sensors/ei_hall_sensor.cpp, folder: src/sensors}
-- {path: src/sensors/ei_inertial_sensor.cpp, folder: src/sensors}
-- {path: src/sensors/ei_microphone.cpp, folder: src/sensors}
-- {path: src/libs/QCBOR/src/UsefulBuf.c, folder: src/libs/QCBOR/src}
-- {path: src/libs/QCBOR/src/ieee754.c, folder: src/libs/QCBOR/src}
-- {path: src/libs/QCBOR/src/qcbor_decode.c, folder: src/libs/QCBOR/src}
-- {path: src/libs/QCBOR/src/qcbor_encode.c, folder: src/libs/QCBOR/src}
-- {path: src/libs/sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.cpp, folder: src/libs/sensor_aq_mbedtls}
+- {path: firmware-sdk/at-server/ei_at_parser.cpp}
+- {path: firmware-sdk/at-server/ei_at_server.cpp}
+- {path: firmware-sdk/at-server/ei_at_command_set.cpp}
+- {path: firmware-sdk/at-server/ei_at_server_singleton.cpp}
+- {path: firmware-sdk/at_base64_lib.cpp}
+- {path: firmware-sdk/ei_device_lib.cpp}
+- {path: firmware-sdk/ei_fusion.cpp}
+- {path: firmware-sdk/sensor_aq.cpp}
+- {path: src/ble.c}
+- {path: src/main.cpp}
+- {path: src/ei_sampler.cpp}
+- {path: src/ei_at_handlers.cpp}
+- {path: src/ei_device_tb2.cpp}
+- {path: src/flash_memory.cpp}
+- {path: src/drivers/MX25R3235/mx25flash_spi.c}
+- {path: src/drivers/rgbled_brd4166.c}
+- {path: src/inference/ei_run_audio_impulse.cpp}
+- {path: src/inference/ei_run_fusion_impulse.cpp}
+- {path: src/sensors/ei_hall_sensor.cpp}
+- {path: src/sensors/ei_inertial_sensor.cpp}
+- {path: src/sensors/ei_microphone.cpp}
+- {path: src/libs/QCBOR/src/UsefulBuf.c}
+- {path: src/libs/QCBOR/src/ieee754.c}
+- {path: src/libs/QCBOR/src/qcbor_decode.c}
+- {path: src/libs/QCBOR/src/qcbor_encode.c}
+- {path: src/libs/sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.cpp}
 include:
 - path: ''
   file_list:
-  - {path: firmware-sdk/at-server/ei_at_command_set.h, folder: firmware-sdk/at-server}
-  - {path: firmware-sdk/at-server/ei_at_history.h, folder: firmware-sdk/at-server}
-  - {path: firmware-sdk/at-server/ei_at_parser.h, folder: firmware-sdk/at-server}
-  - {path: firmware-sdk/at-server/ei_at_server.h, folder: firmware-sdk/at-server}
-  - {path: firmware-sdk/at-server/ei_line_buffer.h, folder: firmware-sdk/at-server}
-  - {path: firmware-sdk/jpeg/encode_as_jpg.h, folder: firmware-sdk/jpeg}
-  - {path: firmware-sdk/jpeg/jpeg.h, folder: firmware-sdk/jpeg}
-  - {path: firmware-sdk/jpeg/JPEGENC.h, folder: firmware-sdk/jpeg}
-  - {path: firmware-sdk/at_base64_lib.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_camera_interface.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_config_types.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_device_info_lib.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_device_interface.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_device_lib.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_device_memory.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_fusion.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_image_lib.h, folder: firmware-sdk}
-  - {path: firmware-sdk/ei_image_nn.h, folder: firmware-sdk}
-  - {path: firmware-sdk/sensor_aq.h, folder: firmware-sdk}
+  - {path: firmware-sdk/at-server/ei_at_command_set.h}
+  - {path: firmware-sdk/at-server/ei_at_history.h}
+  - {path: firmware-sdk/at-server/ei_at_parser.h}
+  - {path: firmware-sdk/at-server/ei_at_server.h}
+  - {path: firmware-sdk/at-server/ei_line_buffer.h}
+  - {path: firmware-sdk/jpeg/encode_as_jpg.h}
+  - {path: firmware-sdk/jpeg/jpeg.h}
+  - {path: firmware-sdk/jpeg/JPEGENC.h}
+  - {path: firmware-sdk/at_base64_lib.h}
+  - {path: firmware-sdk/ei_camera_interface.h}
+  - {path: firmware-sdk/ei_config_types.h}
+  - {path: firmware-sdk/ei_device_info_lib.h}
+  - {path: firmware-sdk/ei_device_interface.h}
+  - {path: firmware-sdk/ei_device_lib.h}
+  - {path: firmware-sdk/ei_device_memory.h}
+  - {path: firmware-sdk/ei_fusion.h}
+  - {path: firmware-sdk/ei_image_lib.h}
+  - {path: firmware-sdk/ei_image_nn.h}
+  - {path: firmware-sdk/sensor_aq.h}
 - path: src
   file_list:
-  - {path: ble.h, folder: src}
-  - {path: ei_sampler.h, folder: src}
-  - {path: ei_at_handlers.h, folder: src}
-  - {path: ei_device_tb2.h, folder: src}
-  - {path: flash_memory.h, folder: src}
-  - {path: libs/QCBOR/src/ieee754.h, folder: src/libs/QCBOR/src}
+  - {path: ble.h}
+  - {path: ei_sampler.h}
+  - {path: ei_at_handlers.h}
+  - {path: ei_device_tb2.h}
+  - {path: flash_memory.h}
+  - {path: libs/QCBOR/src/ieee754.h}
 - path: src/drivers
   file_list:
-  - {path: rgbled_brd4166.h, folder: src/drivers}
-  - {path: MX25R3235/mx25flash_spi.h, folder: src/drivers/MX25R3235}
+  - {path: rgbled_brd4166.h}
+  - {path: MX25R3235/mx25flash_spi.h}
 - path: src/inference
   file_list:
-  - {path: ei_run_impulse.h, folder: src/inference}
+  - {path: ei_run_impulse.h}
 - path: src/sensors
   file_list:
-  - {path: ei_fusion_sensors_config.h, folder: src/sensors}
-  - {path: ei_hall_sensor.h, folder: src/sensors}
-  - {path: ei_inertial_sensor.h, folder: src/sensors}
-  - {path: ei_microphone.h, folder: src/sensors}
+  - {path: ei_fusion_sensors_config.h}
+  - {path: ei_hall_sensor.h}
+  - {path: ei_inertial_sensor.h}
+  - {path: ei_microphone.h}
 - path: src/libs
   file_list:
-  - {path: sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.h, folder: src/libs/sensor_aq_mbedtls}
-  - {path: QCBOR/inc/qcbor.h, folder: src/libs/QCBOR/inc}
-  - {path: QCBOR/inc/UsefulBuf.h, folder: src/libs/QCBOR/inc}
+  - {path: sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.h}
+  - {path: QCBOR/inc/qcbor.h}
+  - {path: QCBOR/inc/UsefulBuf.h}
 - {path: src/libs/QCBOR/inc}
 sdk: {id: gecko_sdk, version: 4.0.2}
 toolchain_settings:
@@ -102,7 +102,6 @@ component:
 - instance: [led_rgb]
   id: simple_rgb_pwm_led
 - {id: i2cspm_core}
-- {id: custom_edge_impulse_library}
 - {id: sl_system}
 - {id: bluetooth_feature_connection}
 - {id: bluetooth_feature_advertiser}
@@ -119,6 +118,7 @@ component:
 - {id: app_assert}
 - {id: imu_driver}
 - {id: sleeptimer}
+- {from: edge_impulse_extension, id: edge_impulse_model}
 define:
 - {name: DEBUG_EFM}
 - {name: TF_LITE_STATIC_MEMORY}
@@ -139,6 +139,6 @@ configuration:
 - {name: SL_BOARD_ENABLE_SENSOR_IMU, value: '1'}
 - {name: SL_BOARD_DISABLE_MEMORY_SPI, value: '0'}
 ui_hints: {}
-component_path:
-- {path: ei-model}
+sdk_extension:
+- {id: edge_impulse_extension, version: 1.0.0}
 

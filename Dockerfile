@@ -6,7 +6,11 @@ WORKDIR /app
 ARG DEBIAN_FRONTEND=noninteractive
 
 # APT packages
-RUN apt update && apt install -y wget unzip python3 python3-pip openjdk-16-jre-headless git-lfs
+RUN apt update && apt install -y wget unzip python3 python3-pip git-lfs software-properties-common
+RUN wget -O- https://apt.corretto.aws/corretto.key | apt-key add -
+RUN add-apt-repository 'deb https://apt.corretto.aws stable main'
+RUN apt update
+RUN apt install -y java-17-amazon-corretto-jdk
 
 # GCC ARM
 RUN if [ $(uname -m) = "x86_64" ]; then export ARCH=x86_64; else export ARCH=aarch64; fi && \
@@ -24,8 +28,8 @@ RUN GECKO_COMMIT=db4e90767174d467158d4c5249ba5be6ab9d9e83 && \
 
 # SLC-CLI tool
 RUN cd / && \
-    wget https://cdn.edgeimpulse.com/build-system/slc_cli_linux_xg24.zip -q && \
-    unzip -q slc_cli_linux_xg24.zip && \
+    wget https://cdn.edgeimpulse.com/build-system/slc_cli_linux.zip -q && \
+    unzip -q slc_cli_linux.zip && \
     cd slc_cli && \
     pip3 install --user -r requirements.txt && \
     chmod +x slc
@@ -33,5 +37,5 @@ RUN cd / && \
 ENV PATH="/slc_cli:${PATH}"
 
 RUN slc configuration --sdk /gecko_sdk/ && \
-    slc signature trust --sdk /gecko_sdk/ && \ 
+    slc signature trust --sdk /gecko_sdk/ && \
     slc configuration --gcc-toolchain /gcc-arm-none-eabi-10-2020-q4-major

@@ -66,6 +66,7 @@ then
     rm -rf autogen/
     rm -rf build/
     rm -rf gecko_sdk_?.?.?/
+    rm -rf edge_impulse_extension_?.?.?/
     rm -f ${PROJECT_NAME}.Makefile
     rm -f ${PROJECT_NAME}.project.mak
     rm -f ${PROJECT_NAME}.slps
@@ -79,8 +80,12 @@ fi
 
 if [ ! -z ${BUILD} ];
 then
+    if [ ! -d firmware-sdk ]; then
+        echo "Firmware SDK not found."
+        exit 1
+    fi
     ${SLC_BIN} generate ${PROJECT_FILE} --no-copy --toolchain=gcc --output-type=makefile
-    make -j -f ${PROJECT_NAME}.Makefile
+    make -j4 -f ${PROJECT_NAME}.Makefile
 fi
 
 if [ ! -z ${FLASH} ];
