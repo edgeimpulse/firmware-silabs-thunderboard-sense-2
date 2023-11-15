@@ -11,10 +11,15 @@ source:
 - {path: firmware-sdk/at-server/ei_at_server.cpp}
 - {path: firmware-sdk/at-server/ei_at_command_set.cpp}
 - {path: firmware-sdk/at-server/ei_at_server_singleton.cpp}
+- {path: firmware-sdk/QCBOR/src/UsefulBuf.c}
+- {path: firmware-sdk/QCBOR/src/ieee754.c}
+- {path: firmware-sdk/QCBOR/src/qcbor_decode.c}
+- {path: firmware-sdk/QCBOR/src/qcbor_encode.c}
 - {path: firmware-sdk/at_base64_lib.cpp}
 - {path: firmware-sdk/ei_device_lib.cpp}
 - {path: firmware-sdk/ei_fusion.cpp}
-- {path: firmware-sdk/sensor_aq.cpp}
+- {path: firmware-sdk/sensor-aq/sensor_aq.cpp}
+- {path: firmware-sdk/sensor-aq/sensor_aq_none.cpp}
 - {path: src/ble.c}
 - {path: src/main.cpp}
 - {path: src/ei_sampler.cpp}
@@ -28,10 +33,6 @@ source:
 - {path: src/sensors/ei_hall_sensor.cpp}
 - {path: src/sensors/ei_inertial_sensor.cpp}
 - {path: src/sensors/ei_microphone.cpp}
-- {path: src/libs/QCBOR/src/UsefulBuf.c}
-- {path: src/libs/QCBOR/src/ieee754.c}
-- {path: src/libs/QCBOR/src/qcbor_decode.c}
-- {path: src/libs/QCBOR/src/qcbor_encode.c}
 - {path: src/libs/sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.cpp}
 include:
 - path: ''
@@ -44,6 +45,9 @@ include:
   - {path: firmware-sdk/jpeg/encode_as_jpg.h}
   - {path: firmware-sdk/jpeg/jpeg.h}
   - {path: firmware-sdk/jpeg/JPEGENC.h}
+  - {path: firmware-sdk/QCBOR/src/ieee754.h}
+  - {path: firmware-sdk/QCBOR/inc/qcbor.h}
+  - {path: firmware-sdk/QCBOR/inc/UsefulBuf.h}
   - {path: firmware-sdk/at_base64_lib.h}
   - {path: firmware-sdk/ei_camera_interface.h}
   - {path: firmware-sdk/ei_config_types.h}
@@ -62,7 +66,6 @@ include:
   - {path: ei_at_handlers.h}
   - {path: ei_device_tb2.h}
   - {path: flash_memory.h}
-  - {path: libs/QCBOR/src/ieee754.h}
 - path: src/drivers
   file_list:
   - {path: rgbled_brd4166.h}
@@ -79,9 +82,6 @@ include:
 - path: src/libs
   file_list:
   - {path: sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.h}
-  - {path: QCBOR/inc/qcbor.h}
-  - {path: QCBOR/inc/UsefulBuf.h}
-- {path: src/libs/QCBOR/inc}
 sdk: {id: gecko_sdk, version: 4.0.2}
 toolchain_settings:
 - {value: -Wno-unused-parameter, option: gcc_compiler_option}
@@ -122,7 +122,6 @@ component:
 define:
 - {name: DEBUG_EFM}
 - {name: TF_LITE_STATIC_MEMORY}
-- {name: EI_SENSOR_AQ_STREAM, value: FILE}
 - {name: EIDSP_USE_CMSIS_DSP, value: '1'}
 - {name: EIDSP_LOAD_CMSIS_DSP_SOURCES, value: '1'}
 - {name: EI_CLASSIFIER_TFLITE_ENABLE_CMSIS_NN, value: '1'}

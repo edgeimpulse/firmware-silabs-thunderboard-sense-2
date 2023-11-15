@@ -26,9 +26,10 @@
 #include "ei_sampler.h"
 #include "ei_device_tb2.h"
 #include "edge-impulse-sdk/porting/ei_classifier_porting.h"
-#include "firmware-sdk/sensor_aq.h"
+#include "firmware-sdk/sensor-aq/sensor_aq.h"
 #include "sl_imu.h"
 #include "sl_sleeptimer.h"
+#include <cmath>
 
 /* Constant defines -------------------------------------------------------- */
 #define CONVERT_G_TO_MS2    9.80665f

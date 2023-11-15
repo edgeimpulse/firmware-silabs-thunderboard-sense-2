@@ -22,6 +22,7 @@
 
 #include "flash_memory.h"
 #include "edge-impulse-sdk/porting/ei_classifier_porting.h"
+#include <cmath>
 
 uint32_t EiFlashMemory::read_data(uint8_t *data, uint32_t address, uint32_t num_bytes)
 {

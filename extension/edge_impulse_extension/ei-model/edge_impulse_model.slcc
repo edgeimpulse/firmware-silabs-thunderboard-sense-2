@@ -25,7 +25,9 @@ root_path: ei-model
 include:
   - path: .
     file_list:
+      - path: edge-impulse-sdk/CMSIS/Core/Include/core_cm85.h
       - path: edge-impulse-sdk/CMSIS/Core/Include/cachel1_armv7.h
+      - path: edge-impulse-sdk/CMSIS/Core/Include/pac_armv81.h
       - path: edge-impulse-sdk/CMSIS/Core/Include/core_cm7.h
       - path: edge-impulse-sdk/CMSIS/Core/Include/tz_context.h
       - path: edge-impulse-sdk/CMSIS/Core/Include/core_cm3.h
@@ -51,10 +53,12 @@ include:
       - path: edge-impulse-sdk/CMSIS/Core/Include/core_cm33.h
       - path: edge-impulse-sdk/CMSIS/Core/Include/core_cm0plus.h
       - path: edge-impulse-sdk/CMSIS/Core/Include/core_armv8mbl.h
+      - path: edge-impulse-sdk/CMSIS/Core/Include/core_starmc1.h
       - path: edge-impulse-sdk/CMSIS/Core/Include/cmsis_armclang_ltm.h
       - path: edge-impulse-sdk/CMSIS/NN/Include/arm_nn_tables.h
       - path: edge-impulse-sdk/CMSIS/NN/Include/arm_nn_types.h
       - path: edge-impulse-sdk/CMSIS/NN/Include/arm_nnfunctions.h
+      - path: edge-impulse-sdk/CMSIS/NN/Include/arm_nn_math_types.h
       - path: edge-impulse-sdk/CMSIS/NN/Include/arm_nnsupportfunctions.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/arm_math_memory.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/arm_const_structs.h
@@ -74,11 +78,13 @@ include:
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/distance_functions_f16.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/svm_defines.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/filtering_functions.h
+      - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/debug.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/controller_functions.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/svm_functions_f16.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/none.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/basic_math_functions_f16.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/statistics_functions_f16.h
+      - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/matrix_utils.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/bayes_functions_f16.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/complex_math_functions.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/dsp/support_functions_f16.h
@@ -137,11 +143,24 @@ include:
       - path: edge-impulse-sdk/third_party/gemmlowp/fixedpoint/fixedpoint_neon.h
       - path: edge-impulse-sdk/third_party/gemmlowp/fixedpoint/fixedpoint_sse.h
       - path: edge-impulse-sdk/third_party/gemmlowp/fixedpoint/fixedpoint.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_table.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_array.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_vector.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_base.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_flatbuffer_builder.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_string.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_buffer.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_verifier.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_allocator.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_util.h
       - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/flatbuffers.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_detached_buffer.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_vector_downward.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_default_allocator.h
       - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/flexbuffers.h
-      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/util.h
-      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/stl_emulation.h
-      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/base.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_struct.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_stl_emulation.h
+      - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_buffer_ref.h
       - path: edge-impulse-sdk/third_party/arc_mli_package/include/mli_config.h
       - path: edge-impulse-sdk/third_party/arc_mli_package/include/mli_types.h
       - path: edge-impulse-sdk/third_party/arc_mli_package/include/api/mli_krn_conv2d_spec_api.h
@@ -156,62 +175,103 @@ include:
       - path: edge-impulse-sdk/tensorflow/lite/micro/compatibility.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/softmax.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/quantize.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/dequantize.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/ethosu.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/depthwise_conv.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/kernel_runner.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mli_tf_utils.h
-      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/micro_utils.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mli_interface.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/scratch_buffers.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/tree_ensemble_classifier.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/circular_buffer.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/leaky_relu.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/logistic.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mli_slicers.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/kernel_util.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/fully_connected.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/svdf.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/prelu.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/sub.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/pad.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/lstm_eval.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/add.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/scratch_buf_mgr.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/activation_utils.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/hard_swish.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/lstm_shared.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mli_function_specializations.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mul.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/micro_tensor_utils.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/conv_test.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/reduce.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/logical.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/pooling.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/activations.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/conv.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/lstm_eval_test.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/micro_ops.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_utils.h
-      - path: edge-impulse-sdk/tensorflow/lite/micro/simple_memory_allocator.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/fake_micro_context.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/micro_allocation_info.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/mock_micro_graph.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/micro_arena_constants.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_mutable_op_resolver.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/single_arena_buffer_allocator.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/test_helper_custom_ops.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/debug_log.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/flatbuffer_utils.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/flatbuffer_conversions_bridge.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/non_persistent_arena_buffer_allocator.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/recording_micro_allocator.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_string.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/test_helpers.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/persistent_arena_buffer_allocator.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/micro_graph.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_error_reporter.h
-      - path: edge-impulse-sdk/tensorflow/lite/micro/recording_simple_memory_allocator.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_op_resolver.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/op_resolver_bridge.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_time.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/micro_log.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/system_setup.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/greedy_memory_planner.h
-      - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/memory_planner.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/non_persistent_buffer_planner_shim.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/micro_memory_planner.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/memory_plan_struct.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/linear_memory_planner.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/micro_profiler_interface.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/micro_context.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_allocator.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/micro_resource_variable.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/micro_profiler.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/memory_helpers.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/recording_single_arena_buffer_allocator.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/all_ops_resolver.h
+      - path: edge-impulse-sdk/tensorflow/lite/micro/ibuffer_allocator.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/recording_micro_interpreter.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/tree_ensemble_classifier.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/kernel_util.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/compatibility.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference_portable_tensor_utils_impl.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/portable_tensor.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/min.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/types.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/cppmath.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/quantization_util.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference_portable_tensor_utils.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/portable_tensor_utils.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/common.h
-      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/tensor_utils_common.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/optimized/neon_check.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/max.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/strided_slice_logic.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/tensor_ctypes.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/runtime_shape.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/softmax.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/quantize.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/dequantize.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/strided_slice.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/floor_div.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/fill.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/requantize.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/integer_ops/depthwise_conv.h
@@ -226,29 +286,36 @@ include:
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/integer_ops/transpose_conv.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/integer_ops/conv.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/leaky_relu.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/floor_mod.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/logistic.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/fully_connected.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/broadcast_args.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/prelu.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/round.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/sub.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/add_n.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/slice.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/pad.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/add.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/l2normalization.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/log_softmax.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/arg_min_max.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/broadcast_to.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/ceil.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/hard_swish.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/resize_nearest_neighbor.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/concatenation.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/depthwiseconv_uint8.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/tanh.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/lstm_cell.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/space_to_batch_nd.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/mul.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/elu.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/cumsum.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/reduce.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/depthwiseconv_float.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/process_broadcast_shapes.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/space_to_depth.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/batch_to_space_nd.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/maximum_minimum.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/exp.h
@@ -256,20 +323,30 @@ include:
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/neg.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/comparisons.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/transpose_conv.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/resize_bilinear.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/batch_matmul.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/transpose.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/depth_to_space.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/conv.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/floor.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/binary_function.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/div.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/select.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/op_macros.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/padding.h
+      - path: edge-impulse-sdk/tensorflow/lite/context_util.h
       - path: edge-impulse-sdk/tensorflow/lite/portable_type_to_tflitetype.h
+      - path: edge-impulse-sdk/tensorflow/lite/builtin_ops.h
       - path: edge-impulse-sdk/tensorflow/lite/core/api/tensor_utils.h
       - path: edge-impulse-sdk/tensorflow/lite/core/api/op_resolver.h
       - path: edge-impulse-sdk/tensorflow/lite/core/api/error_reporter.h
       - path: edge-impulse-sdk/tensorflow/lite/core/api/flatbuffer_conversions.h
+      - path: edge-impulse-sdk/tensorflow/lite/core/c/c_api_types.h
+      - path: edge-impulse-sdk/tensorflow/lite/core/c/builtin_op_data.h
+      - path: edge-impulse-sdk/tensorflow/lite/core/c/common.h
+      - path: edge-impulse-sdk/tensorflow/lite/builtin_op_data.h
       - path: edge-impulse-sdk/tensorflow/lite/schema/schema_utils.h
+      - path: edge-impulse-sdk/tensorflow/lite/schema/schema_generated_full.h
       - path: edge-impulse-sdk/tensorflow/lite/schema/schema_generated.h
       - path: edge-impulse-sdk/tensorflow/lite/c/c_api_types.h
       - path: edge-impulse-sdk/tensorflow/lite/c/builtin_op_data.h
@@ -326,12 +403,15 @@ include:
 source:
   - path: edge-impulse-sdk/cmake/utils.cmake
   - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_pool_q7_HWC.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_add_q7.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_svdf_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_with_offset.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c
@@ -341,11 +421,15 @@ source:
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_no_shift.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q15.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s16.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_kernel_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s8.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15_opt.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7_opt.c
@@ -355,21 +439,30 @@ source:
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_y.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_z.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q15.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_with_batch_q7.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q7.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/SVDFunctions/arm_svdf_state_s16_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s8.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_basic.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_wrapper_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_3x3_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.c
@@ -384,11 +477,13 @@ source:
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_HWC_q7_fast_nonsquare.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_u8_basic_ver1.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8_opt.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_fast_s16.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_fast_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8.c
-  - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast_nonsquare.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_wrapper_s8.c
+  - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast.c
@@ -399,6 +494,8 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_add_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_fast_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_householder_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_qr_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_cmplx_mult_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_solve_lower_triangular_f32.c
@@ -427,11 +524,14 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_solve_upper_triangular_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_add_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_qr_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_solve_lower_triangular_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_opt_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_cmplx_mult_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_trans_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_init_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_householder_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_scale_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_trans_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_vec_mult_q15.c
@@ -439,12 +539,14 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_add_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_cmplx_trans_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_sub_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_householder_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_mult_fast_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_vec_mult_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_cholesky_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_solve_lower_triangular_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_cmplx_mult_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_init_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_qr_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_ldlt_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_solve_upper_triangular_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_trans_f16.c
@@ -453,6 +555,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_sub_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/MatrixFunctions/arm_mat_inverse_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix2_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_init_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_init_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_dct4_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_dct4_q15.c
@@ -464,18 +567,22 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_bitreversal2.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_init_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix2_init_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_dct4_init_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix2_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_init_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_init_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_bitreversal.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_rfft_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_init_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix2_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix2_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_init_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_dct4_init_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_dct4_f32.c
@@ -484,10 +591,12 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_init_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix2_init_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix2_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_init_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_init_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_init_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_rfft_q31.c
@@ -495,6 +604,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_rfft_init_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_dct4_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix8_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_mfcc_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_init_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_f16.c
@@ -522,6 +632,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_partial_fast_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_sparse_init_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_levinson_durbin_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_biquad_cascade_df1_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_iir_lattice_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_partial_f32.c
@@ -537,9 +648,11 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_init_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_init_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_correlate_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_lms_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_correlate_fast_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_biquad_cascade_stereo_df2T_init_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_correlate_fast_opt_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_decimate_init_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_biquad_cascade_df1_q15.c
@@ -570,6 +683,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_correlate_fast_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_lattice_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_levinson_durbin_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_biquad_cascade_stereo_df2T_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_iir_lattice_init_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_partial_q15.c
@@ -580,6 +694,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_decimate_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_sparse_init_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_lattice_init_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_init_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_correlate_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_iir_lattice_q31.c
@@ -604,6 +719,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_biquad_cascade_df1_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_lattice_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_fir_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_levinson_durbin_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_partial_fast_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_partial_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_lms_norm_q31.c
@@ -615,54 +731,104 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_biquad_cascade_df1_init_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_correlate_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FilteringFunctions/arm_conv_partial_opt_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_no_idx_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_power_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_no_idx_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_accumulate_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_no_idx_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_no_idx_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_std_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_power_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mse_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_kullback_leibler_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_no_idx_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_rms_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mean_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_var_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mse_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_no_idx_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_std_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_no_idx_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_no_idx_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_no_idx_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_no_idx_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_no_idx_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_power_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mse_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_logsumexp_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_rms_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_entropy_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_kullback_leibler_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mean_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_power_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_no_idx_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_std_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_logsumexp_dot_prod_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_var_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_no_idx_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_no_idx_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_no_idx_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_no_idx_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mse_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_power_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_no_idx_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_entropy_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mean_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_rms_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_logsumexp_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_var_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_logsumexp_dot_prod_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_accumulate_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_std_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_no_idx_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_accumulate_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_no_idx_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_no_idx_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_no_idx_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_var_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_kullback_leibler_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_entropy_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mean_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mse_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_power_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mean_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_rms_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_min_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_max_no_idx_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mse_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_std_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_mean_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmin_no_idx_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_var_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/StatisticsFunctions/arm_absmax_no_idx_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_sub_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_add_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_shift_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_abs_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_negate_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_mult_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_dot_prod_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_and_u32.c
@@ -680,6 +846,8 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_offset_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_sub_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_mult_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_abs_f64.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_dot_prod_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_abs_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_shift_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_dot_prod_q15.c
@@ -692,6 +860,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_clip_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_sub_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_not_u32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_scale_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_add_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_negate_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_mult_f16.c
@@ -699,22 +868,26 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_negate_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_abs_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_clip_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_sub_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_or_u32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_not_u8.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_scale_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_offset_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_shift_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_offset_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_add_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_sub_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_mult_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_mult_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_xor_u8.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_mult_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_abs_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_and_u8.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_dot_prod_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_and_u16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_negate_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_add_q7.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_add_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_scale_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_offset_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_xor_u32.c
@@ -740,6 +913,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_float_to_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_copy_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_weighted_sum_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_copy_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_fill_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_q7_to_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_copy_q15.c
@@ -755,6 +929,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_quick_sort_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_float_to_q7.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_copy_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_fill_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_q7_to_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_f16_to_float.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SupportFunctions/arm_float_to_f16.c
@@ -779,6 +954,7 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_jaccard_distance.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_jensenshannon_distance_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_cosine_distance_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_cosine_distance_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_chebyshev_distance_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_sokalmichener_distance.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_sokalsneath_distance.c
@@ -788,15 +964,18 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_kulsinski_distance.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_chebyshev_distance_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_dice_distance.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_cityblock_distance_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_braycurtis_distance_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_yule_distance.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_canberra_distance_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_euclidean_distance_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_euclidean_distance_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_minkowski_distance_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_correlation_distance_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_boolean_distance.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_cityblock_distance_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_hamming_distance.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_chebyshev_distance_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_jensenshannon_distance_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_cosine_distance_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ControllerFunctions/arm_pid_init_q15.c
@@ -809,17 +988,27 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ControllerFunctions/arm_pid_reset_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_sin_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_cos_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_atan2_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vlog_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_cos_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_divide_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vlog_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_sqrt_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vexp_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_atan2_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vlog_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_cos_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_sin_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_divide_q15.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_atan2_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vexp_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vlog_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_sqrt_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vexp_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_sin_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vinverse_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_vlog_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/FastMathFunctions/arm_atan2_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BayesFunctions/arm_gaussian_naive_bayes_predict_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BayesFunctions/arm_gaussian_naive_bayes_predict_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/SVMFunctions/arm_svm_polynomial_predict_f16.c
@@ -858,44 +1047,62 @@ source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_dot_prod_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_conj_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_fast_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_squared_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_dot_prod_f32.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_real_f16.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_conj_f32.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_squared_f64.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_squared_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_real_q15.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mult_cmplx_f16.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_dot_prod_q31.c
   - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_conj_q31.c
+  - path: edge-impulse-sdk/CMSIS/DSP/Source/ComplexMathFunctions/arm_cmplx_mag_f64.c
   - path: edge-impulse-sdk/classifier/ei_run_classifier_c.cpp
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/elu.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/concatenation.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/squeeze.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/read_variable.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/svdf_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/batch_to_space_nd.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/select.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/fully_connected_common.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/broadcast_to.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/cumsum.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/conv.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/leaky_relu_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/depthwise_conv.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/l2_pool_2d.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/depthwise_conv_common.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/floor_mod.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/if.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/exp.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mul_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/space_to_batch_nd.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/softmax.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/var_handle.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/round.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/conv_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/strided_slice.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/prelu.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/split.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/transpose.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/assign_variable.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/scratch_buf_mgr.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/expand_dims.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/dequantize_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/transpose_conv.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/while.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/kernel_util_micro.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/fully_connected.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/pad.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/sub_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mul.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/dequantize.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/tree_ensemble_classifier.cc
@@ -903,19 +1110,29 @@ source:
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/unpack.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/arg_min_max.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/shape.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/gather_nd.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/circular_buffer.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/prelu_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/rfft2d.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/sub.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/activations_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/reshape.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/zeros_like.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/depth_to_space.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/activations.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/detection_postprocess.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/logistic.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/reduce_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/softmax_common.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/call_once.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/squared_difference.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/quantize_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/ceil.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/add_n.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mli_interface.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/hard_swish.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/add_common.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/lstm_eval.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/elementwise.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/pooling.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/real.cc
@@ -925,14 +1142,20 @@ source:
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/complex_abs.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/svdf.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/gather.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/circular_buffer_common.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/micro_tensor_utils.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mirror_pad.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/broadcast_args.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/maximum_minimum.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/ethosu.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/pack.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/mli_slicers.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/split_v.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/batch_matmul.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/logistic_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/slice.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/fill.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/space_to_depth.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/leaky_relu.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/comparisons.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/reduce.cc
@@ -941,33 +1164,55 @@ source:
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/logical.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/scratch_buffers.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/tanh.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/logical_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/l2norm.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/resize_bilinear.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/pooling_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/neg.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/hard_swish_common.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/kernel_runner.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/add.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/kernels/floor_div.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/test_helpers.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/mock_micro_graph.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/micro_graph.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/micro_allocation_info.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/non_persistent_arena_buffer_allocator.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/all_ops_resolver.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_profiler.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/micro_context.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/micro_resource_variable.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/system_setup.cc
-  - path: edge-impulse-sdk/tensorflow/lite/micro/simple_memory_allocator.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/test_helper_custom_ops.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_error_reporter.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/micro_log.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/recording_micro_allocator.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/recording_single_arena_buffer_allocator.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_string.cc
-  - path: edge-impulse-sdk/tensorflow/lite/micro/tensor_utils_common.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/persistent_arena_buffer_allocator.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/flatbuffer_conversions_bridge.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_interpreter.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/fake_micro_context.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/greedy_memory_planner.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/non_persistent_buffer_planner_shim.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/memory_planner/linear_memory_planner.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_time.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_utils.cc
-  - path: edge-impulse-sdk/tensorflow/lite/micro/recording_simple_memory_allocator.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/single_arena_buffer_allocator.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/flatbuffer_utils.cc
+  - path: edge-impulse-sdk/tensorflow/lite/micro/op_resolver_bridge.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/schema_utils.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_allocator.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/memory_helpers.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/kernel_util_lite.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/tree_ensemble_classifier.cc
+  - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/tensor_utils.cc
+  - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/portable_tensor_utils.cc
+  - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference_portable_tensor_utils.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/quantization_util.cc
   - path: edge-impulse-sdk/tensorflow/lite/core/api/error_reporter.cc
   - path: edge-impulse-sdk/tensorflow/lite/core/api/tensor_utils.cc
+  - path: edge-impulse-sdk/tensorflow/lite/core/api/common.cc
   - path: edge-impulse-sdk/tensorflow/lite/core/api/flatbuffer_conversions.cc
   - path: edge-impulse-sdk/tensorflow/lite/core/api/op_resolver.cc
   - path: edge-impulse-sdk/tensorflow/lite/c/common.c
@@ -980,6 +1225,8 @@ source:
   - path: edge-impulse-sdk/dsp/dct/.clang-format
   - path: edge-impulse-sdk/porting/posix/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/posix/debug_log.cpp
+  - path: edge-impulse-sdk/porting/iar/ei_classifier_porting.cpp
+  - path: edge-impulse-sdk/porting/iar/debug_log.cpp
   - path: edge-impulse-sdk/porting/seeed-vision-ai/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/seeed-vision-ai/debug_log.cpp
   - path: edge-impulse-sdk/porting/raspberry/ei_classifier_porting.cpp

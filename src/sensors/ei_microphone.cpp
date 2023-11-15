@@ -22,7 +22,7 @@
 
 #include "ei_microphone.h"
 #include "ei_device_tb2.h"
-#include "firmware-sdk/sensor_aq.h"
+#include "firmware-sdk/sensor-aq/sensor_aq.h"
 #include "sensor_aq_mbedtls/sensor_aq_mbedtls_hs256.h"
 #include "edge-impulse-sdk/CMSIS/DSP/Include/dsp/support_functions.h"
 #include "edge-impulse-sdk/porting/ei_classifier_porting.h"
