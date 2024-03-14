@@ -250,7 +250,6 @@ include:
       - path: edge-impulse-sdk/tensorflow/lite/micro/all_ops_resolver.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/ibuffer_allocator.h
       - path: edge-impulse-sdk/tensorflow/lite/micro/recording_micro_interpreter.h
-      - path: edge-impulse-sdk/tensorflow/lite/kernels/tree_ensemble_classifier.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/kernel_util.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/compatibility.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference_portable_tensor_utils_impl.h
@@ -333,6 +332,7 @@ include:
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/div.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference/select.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/op_macros.h
+      - path: edge-impulse-sdk/tensorflow/lite/kernels/custom/tree_ensemble_classifier.h
       - path: edge-impulse-sdk/tensorflow/lite/kernels/padding.h
       - path: edge-impulse-sdk/tensorflow/lite/context_util.h
       - path: edge-impulse-sdk/tensorflow/lite/portable_type_to_tflitetype.h
@@ -351,6 +351,8 @@ include:
       - path: edge-impulse-sdk/tensorflow/lite/c/c_api_types.h
       - path: edge-impulse-sdk/tensorflow/lite/c/builtin_op_data.h
       - path: edge-impulse-sdk/tensorflow/lite/c/common.h
+      - path: edge-impulse-sdk/dsp/ei_flatten.h
+      - path: edge-impulse-sdk/dsp/ei_dsp_handle.h
       - path: edge-impulse-sdk/dsp/numpy_types.h
       - path: edge-impulse-sdk/dsp/ei_profiler.h
       - path: edge-impulse-sdk/dsp/config.hpp
@@ -378,6 +380,7 @@ include:
       - path: edge-impulse-sdk/dsp/speechpy/processing.hpp
       - path: edge-impulse-sdk/dsp/ei_vector.h
       - path: edge-impulse-sdk/dsp/memory.hpp
+      - path: edge-impulse-sdk/dsp/returntypes.h
       - path: edge-impulse-sdk/dsp/returntypes.hpp
       - path: edge-impulse-sdk/porting/ei_classifier_porting.h
       - path: edge-impulse-sdk/porting/ei_logging.h
@@ -395,11 +398,11 @@ include:
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_ansi_c.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/common/common_functions.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/softmax/softmax_common.h
-      - path: model-parameters/anomaly_clusters.h
       - path: model-parameters/model_variables.h
+      - path: model-parameters/anomaly_metadata.h
       - path: model-parameters/model_metadata.h
       - path: tflite-model/trained_model_ops_define.h
-      - path: tflite-model/trained_model_compiled.h
+      - path: tflite-model/tflite_learn_3_compiled.h
 source:
   - path: edge-impulse-sdk/cmake/utils.cmake
   - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.c
@@ -1205,11 +1208,11 @@ source:
   - path: edge-impulse-sdk/tensorflow/lite/micro/micro_allocator.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/memory_helpers.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/kernel_util_lite.cc
-  - path: edge-impulse-sdk/tensorflow/lite/kernels/tree_ensemble_classifier.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/tensor_utils.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/portable_tensor_utils.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/reference_portable_tensor_utils.cc
   - path: edge-impulse-sdk/tensorflow/lite/kernels/internal/quantization_util.cc
+  - path: edge-impulse-sdk/tensorflow/lite/kernels/custom/tree_ensemble_classifier.cc
   - path: edge-impulse-sdk/tensorflow/lite/core/api/error_reporter.cc
   - path: edge-impulse-sdk/tensorflow/lite/core/api/tensor_utils.cc
   - path: edge-impulse-sdk/tensorflow/lite/core/api/common.cc
@@ -1227,11 +1230,11 @@ source:
   - path: edge-impulse-sdk/porting/posix/debug_log.cpp
   - path: edge-impulse-sdk/porting/iar/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/iar/debug_log.cpp
+  - path: edge-impulse-sdk/porting/renesas-ra/ei_classifier_porting.cpp
+  - path: edge-impulse-sdk/porting/renesas-ra/debug_log.cpp
   - path: edge-impulse-sdk/porting/seeed-vision-ai/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/seeed-vision-ai/debug_log.cpp
   - path: edge-impulse-sdk/porting/raspberry/ei_classifier_porting.cpp
-  - path: edge-impulse-sdk/porting/renesas-ra6m5/ei_classifier_porting.cpp
-  - path: edge-impulse-sdk/porting/renesas-ra6m5/debug_log.cpp
   - path: edge-impulse-sdk/porting/brickml/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/brickml/debug_log.cpp
   - path: edge-impulse-sdk/porting/himax/ei_classifier_porting.cpp
@@ -1279,4 +1282,4 @@ source:
   - path: edge-impulse-sdk/porting/sony/debug_log.cpp
   - path: edge-impulse-sdk/porting/ti/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/ti/debug_log.cpp
-  - path: tflite-model/trained_model_compiled.cpp
+  - path: tflite-model/tflite_learn_3_compiled.cpp
