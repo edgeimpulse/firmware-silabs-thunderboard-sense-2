@@ -28,6 +28,7 @@
 #include "edge-impulse-sdk/porting/ei_classifier_porting.h"
 #include "sl_mic.h"
 #include "sl_status.h"
+#include "edge-impulse-sdk/dsp/numpy.hpp"
 
 //TODO: use multiply of memory block size
 #define MIC_SAMPLE_SIZE 2048
@@ -201,7 +202,7 @@ bool ei_microphone_sample_start(void)
     current_sample = 0;
 
     if(required_samples_size > mem->get_available_sample_bytes()) {
-        ei_printf("ERR: Sample length is too long. Maximum allowed is %lu ms at 16000 Hz.\r\n", 
+        ei_printf("ERR: Sample length is too long. Maximum allowed is %lu ms at 16000 Hz.\r\n",
             ((mem->get_available_sample_bytes() / (16000 * sizeof(microphone_sample_t))) * 1000));
         return false;
     }
@@ -345,10 +346,10 @@ static void inference_samples_callback(const int16_t *buffer, uint32_t sample_co
 
 int ei_microphone_inference_get_data(size_t offset, size_t length, float *out_ptr)
 {
-    arm_q15_to_float(&inference.buffers[inference.buf_select ^ 1][offset], out_ptr, length);
+    ei::numpy::int16_to_float(&inference.buffers[inference.buf_select ^ 1][offset], out_ptr, length);
     inference.buf_ready = 0;
 
-    return 0;  
+    return 0;
 }
 
 bool ei_microphone_inference_start(uint32_t n_samples, float interval_ms)

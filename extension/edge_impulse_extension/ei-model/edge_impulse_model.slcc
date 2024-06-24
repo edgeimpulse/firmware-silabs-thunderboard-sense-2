@@ -381,15 +381,20 @@ include:
       - path: edge-impulse-sdk/dsp/ei_vector.h
       - path: edge-impulse-sdk/dsp/memory.hpp
       - path: edge-impulse-sdk/dsp/returntypes.h
+      - path: edge-impulse-sdk/dsp/ei_hr.hpp
       - path: edge-impulse-sdk/dsp/returntypes.hpp
       - path: edge-impulse-sdk/porting/ei_classifier_porting.h
       - path: edge-impulse-sdk/porting/ei_logging.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/ethosu_driver.h
-      - path: edge-impulse-sdk/porting/ethos-core-driver/include/ethosu_device.h
+      - path: edge-impulse-sdk/porting/ethos-core-driver/include/ethosu_types.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/pmu_ethosu.h
-      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_config.h
+      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_log.h
+      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_device.h
+      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_interface.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu55_interface.h
-      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_common.h
+      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_config_u55.h
+      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu65_interface.h
+      - path: edge-impulse-sdk/porting/ethos-core-driver/src/ehtosu_config_u65.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_esp32s3.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_generic_opt.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_defs.h
@@ -1250,10 +1255,9 @@ source:
   - path: edge-impulse-sdk/porting/synaptics/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/synaptics/debug_log.cpp
   - path: edge-impulse-sdk/porting/.clang-format
-  - path: edge-impulse-sdk/porting/ethos-core-driver/.clang-format
+  - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_device_u55_u65.c
   - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_driver.c
   - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_pmu.c
-  - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_device.c
   - path: edge-impulse-sdk/porting/mingw32/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/mingw32/debug_log.cpp
   - path: edge-impulse-sdk/porting/silabs/ei_classifier_porting.cpp
