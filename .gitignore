@@ -13,3 +13,5 @@ build-deploy-block.sh
 !protocol/bluetooth/lib/EFR32MG12P/GCC/binapploader.o
 .metadata/
 copy-sdk.sh
+create-arduino-library.sh
+

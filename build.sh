@@ -85,7 +85,7 @@ then
         exit 1
     fi
     ${SLC_BIN} generate ${PROJECT_FILE} --no-copy --toolchain=gcc --output-type=makefile
-    make -j `nproc` -f ${PROJECT_NAME}.Makefile
+    make -j ${MAKE_JOBS:-$(nproc)} -f ${PROJECT_NAME}.Makefile
 fi
 
 if [ ! -z ${FLASH} ];
