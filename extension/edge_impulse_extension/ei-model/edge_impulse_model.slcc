@@ -110,7 +110,6 @@ include:
       - path: edge-impulse-sdk/CMSIS/DSP/Include/arm_vec_filtering.h
       - path: edge-impulse-sdk/CMSIS/DSP/Include/arm_sorting.h
       - path: edge-impulse-sdk/CMSIS/DSP/Source/DistanceFunctions/arm_boolean_distance_template.h
-      - path: edge-impulse-sdk/classifier/ei_performance_calibration.h
       - path: edge-impulse-sdk/classifier/ei_aligned_malloc.h
       - path: edge-impulse-sdk/classifier/ei_run_dsp.h
       - path: edge-impulse-sdk/classifier/ei_nms.h
@@ -136,6 +135,10 @@ include:
       - path: edge-impulse-sdk/classifier/ei_quantize.h
       - path: edge-impulse-sdk/classifier/ei_signal_with_range.h
       - path: edge-impulse-sdk/classifier/ei_fill_result_struct.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_performance_calibration.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_types.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_object_counting.h
       - path: edge-impulse-sdk/classifier/ei_model_types.h
       - path: edge-impulse-sdk/classifier/ei_classifier_smooth.h
       - path: edge-impulse-sdk/classifier/ei_signal_with_axes.h
