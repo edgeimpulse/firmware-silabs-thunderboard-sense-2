@@ -391,8 +391,6 @@ include:
       - path: edge-impulse-sdk/dsp/returntypes.hpp
       - path: edge-impulse-sdk/porting/ei_classifier_porting.h
       - path: edge-impulse-sdk/porting/ei_logging.h
-      - path: edge-impulse-sdk/porting/ethos-u-driver-stack-imx/kernel_driver/include/uapi/ethosu.h
-      - path: edge-impulse-sdk/porting/ethos-u-driver-stack-imx/driver_library/include/ethosu.hpp
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/ethosu_driver.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/ethosu_types.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/pmu_ethosu.h
@@ -1266,7 +1264,6 @@ source:
   - path: edge-impulse-sdk/porting/mbed/debug_log.cpp
   - path: edge-impulse-sdk/porting/stm32-cubeai/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/stm32-cubeai/debug_log.cpp
-  - path: edge-impulse-sdk/porting/ethos-u-driver-stack-imx/driver_library/src/ethosu.cpp
   - path: edge-impulse-sdk/porting/arduino/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/arduino/debug_log.cpp
   - path: edge-impulse-sdk/porting/synaptics/ei_classifier_porting.cpp
