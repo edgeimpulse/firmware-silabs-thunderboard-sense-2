@@ -137,9 +137,14 @@ include:
       - path: edge-impulse-sdk/classifier/ei_signal_with_range.h
       - path: edge-impulse-sdk/classifier/ei_fill_result_struct.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_performance_calibration.h
-      - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_types.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_common.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_object_counting.h
+      - path: edge-impulse-sdk/classifier/postprocessing/alignment/ei_alignment.hpp
+      - path: edge-impulse-sdk/classifier/postprocessing/alignment/rectangular_lsap.hpp
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_object_tracking.h
+      - path: edge-impulse-sdk/classifier/postprocessing/tinyEKF/tinyekf_custom.h
+      - path: edge-impulse-sdk/classifier/postprocessing/tinyEKF/tinyekf.hpp
       - path: edge-impulse-sdk/classifier/ei_model_types.h
       - path: edge-impulse-sdk/classifier/ei_classifier_smooth.h
       - path: edge-impulse-sdk/classifier/ei_signal_with_axes.h
@@ -410,6 +415,7 @@ include:
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_ansi_headers.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_ansi_c.h
+      - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_esp32p4.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/common/common_functions.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/softmax/softmax_common.h
       - path: model-parameters/model_variables.h
@@ -1292,6 +1298,7 @@ source:
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/activation_functions/esp_nn_relu_ansi.c
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/softmax/esp_nn_softmax_opt.c
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/softmax/esp_nn_softmax_ansi.c
+  - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/convolution/esp_nn_conv_esp32p4.c
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/convolution/esp_nn_conv_opt.c
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/convolution/esp_nn_conv_ansi.c
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/convolution/esp_nn_depthwise_conv_ansi.c
