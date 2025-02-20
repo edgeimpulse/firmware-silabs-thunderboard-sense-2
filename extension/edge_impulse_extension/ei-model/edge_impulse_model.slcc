@@ -123,6 +123,7 @@ include:
       - path: edge-impulse-sdk/classifier/inferencing_engines/tflite_full.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/ethos_linux.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/tflite_helper.h
+      - path: edge-impulse-sdk/classifier/inferencing_engines/aton.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/tflite_micro.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/tensaiflow.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/memryx.h
@@ -171,6 +172,7 @@ include:
       - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_struct.h
       - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_stl_emulation.h
       - path: edge-impulse-sdk/third_party/flatbuffers/include/flatbuffers/fb_buffer_ref.h
+      - path: edge-impulse-sdk/third_party/incbin/incbin.h
       - path: edge-impulse-sdk/third_party/arc_mli_package/include/mli_config.h
       - path: edge-impulse-sdk/third_party/arc_mli_package/include/mli_types.h
       - path: edge-impulse-sdk/third_party/arc_mli_package/include/api/mli_krn_conv2d_spec_api.h
@@ -388,6 +390,9 @@ include:
       - path: edge-impulse-sdk/dsp/dct/fast-dct-fft.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_arm_cmsis_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_no_hw_dsp.h
+      - path: edge-impulse-sdk/dsp/dsp_engines/ei_ceva_dsp.h
+      - path: edge-impulse-sdk/dsp/dsp_engines/ceva/ceva_dsp_lib_fft.h
+      - path: edge-impulse-sdk/dsp/dsp_engines/ceva/ceva_typedef.h
       - path: edge-impulse-sdk/dsp/speechpy/functions.hpp
       - path: edge-impulse-sdk/dsp/speechpy/feature.hpp
       - path: edge-impulse-sdk/dsp/speechpy/speechpy.hpp
@@ -424,6 +429,7 @@ include:
       - path: tflite-model/trained_model_ops_define.h
       - path: tflite-model/tflite_learn_3_compiled.h
 source:
+  - path: edge-impulse-sdk/cmake/add_source.cmake
   - path: edge-impulse-sdk/cmake/utils.cmake
   - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.c
   - path: edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.c
