@@ -1,17 +1,11 @@
-.settings/
-*.d
-*.o
-BgBuild_Log.txt
-*.bak
-imported_project_report.html
-.settings
-GNU ARM v7.2.1 - Default/firmware-silabs*
-GNU ARM v7.2.1 - Default/
-build-deploy-block.sh
-!.cproject
-!.project
-!protocol/bluetooth/lib/EFR32MG12P/GCC/binapploader.o
-.metadata/
-copy-sdk.sh
+build/
+autogen/
+gecko_sdk_*/
+*.slps
+*.Makefile
+*.emProject
+*.project.mak
+*.pintool
 create-arduino-library.sh
+copy-sdk.sh
 
