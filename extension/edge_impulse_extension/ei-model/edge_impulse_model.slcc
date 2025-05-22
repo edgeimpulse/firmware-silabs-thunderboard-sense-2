@@ -151,8 +151,6 @@ include:
       - path: edge-impulse-sdk/classifier/postprocessing/tinyEKF/tinyekf_custom.h
       - path: edge-impulse-sdk/dsp/config.hpp
       - path: edge-impulse-sdk/dsp/dct/fast-dct-fft.h
-      - path: edge-impulse-sdk/dsp/dsp_engines/ceva/ceva_dsp_lib_fft.h
-      - path: edge-impulse-sdk/dsp/dsp_engines/ceva/ceva_typedef.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_arm_cmsis_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_ceva_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_ceva_dsp_fixed.h
