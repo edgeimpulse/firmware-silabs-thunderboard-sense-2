@@ -128,6 +128,7 @@ include:
       - path: edge-impulse-sdk/classifier/inferencing_engines/akida.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/anomaly.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/aton.h
+      - path: edge-impulse-sdk/classifier/inferencing_engines/ceva_npn.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/drpai.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/engines.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/ethos_linux.h
@@ -1109,6 +1110,8 @@ source:
   - path: edge-impulse-sdk/porting/arduino/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/brickml/debug_log.cpp
   - path: edge-impulse-sdk/porting/brickml/ei_classifier_porting.cpp
+  - path: edge-impulse-sdk/porting/ceva-npn/debug_log.cpp
+  - path: edge-impulse-sdk/porting/ceva-npn/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/clib/debug_log.cpp
   - path: edge-impulse-sdk/porting/clib/ei_classifier_porting.cpp
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/activation_functions/esp_nn_relu_ansi.c
