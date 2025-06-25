@@ -115,7 +115,6 @@ include:
       - path: edge-impulse-sdk/classifier/ei_classifier_smooth.h
       - path: edge-impulse-sdk/classifier/ei_classifier_types.h
       - path: edge-impulse-sdk/classifier/ei_constants.h
-      - path: edge-impulse-sdk/classifier/ei_fill_result_struct.h
       - path: edge-impulse-sdk/classifier/ei_model_types.h
       - path: edge-impulse-sdk/classifier/ei_nms.h
       - path: edge-impulse-sdk/classifier/ei_quantize.h
