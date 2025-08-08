@@ -155,6 +155,7 @@ include:
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_arm_cmsis_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_ceva_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_ceva_dsp_fixed.h
+      - path: edge-impulse-sdk/dsp/dsp_engines/ei_esp_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_no_hw_dsp.h
       - path: edge-impulse-sdk/dsp/ei_alloc.h
       - path: edge-impulse-sdk/dsp/ei_dsp_handle.h
@@ -197,6 +198,15 @@ include:
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/include/esp_nn_generic_opt.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/common/common_functions.h
       - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/softmax/softmax_common.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/common/include/dsp_common.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/common/include/dsp_err.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/common/include/dsp_err_codes.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/common/include/dsp_platform.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/common/include/dsp_tests.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/common/include/dsp_types.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/fft/include/dsps_fft2r.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/fft/include/dsps_fft2r_platform.h
+      - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/fft/include/dsps_fft_tables.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/ethosu_driver.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/ethosu_types.h
       - path: edge-impulse-sdk/porting/ethos-core-driver/include/pmu_ethosu.h
@@ -1131,6 +1141,11 @@ source:
   - path: edge-impulse-sdk/porting/espressif/ESP-NN/src/softmax/esp_nn_softmax_opt.c
   - path: edge-impulse-sdk/porting/espressif/debug_log.cpp
   - path: edge-impulse-sdk/porting/espressif/ei_classifier_porting.cpp
+  - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/common/misc/dsps_pwroftwo.cpp
+  - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/fft/fixed/dsps_fft2r_sc16_ansi.c
+  - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/fft/float/dsps_fft2r_bitrev_tables_fc32.c
+  - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/fft/float/dsps_fft2r_fc32_ae32.c
+  - path: edge-impulse-sdk/porting/espressif/esp-dsp/modules/fft/float/dsps_fft2r_fc32_ansi.c
   - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_device_u55_u65.c
   - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_device_u85.c
   - path: edge-impulse-sdk/porting/ethos-core-driver/src/ethosu_driver.c
