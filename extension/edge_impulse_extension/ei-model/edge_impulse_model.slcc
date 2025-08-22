@@ -438,7 +438,7 @@ include:
       - path: model-parameters/anomaly_metadata.h
       - path: model-parameters/model_metadata.h
       - path: model-parameters/model_variables.h
-      - path: tflite-model/tflite_learn_3_compiled.h
+      - path: tflite-model/tflite_learn_43_3_compiled.h
       - path: tflite-model/trained_model_ops_define.h
 source:
   - path: edge-impulse-sdk/CMSIS/DSP/Source/BasicMathFunctions/arm_abs_f16.c
@@ -1339,4 +1339,4 @@ source:
   - path: edge-impulse-sdk/tensorflow/lite/micro/system_setup.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/test_helper_custom_ops.cc
   - path: edge-impulse-sdk/tensorflow/lite/micro/test_helpers.cc
-  - path: tflite-model/tflite_learn_3_compiled.cpp
+  - path: tflite-model/tflite_learn_43_3_compiled.cpp
