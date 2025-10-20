@@ -159,6 +159,7 @@ include:
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_no_hw_dsp.h
       - path: edge-impulse-sdk/dsp/ei_alloc.h
       - path: edge-impulse-sdk/dsp/ei_dsp_handle.h
+      - path: edge-impulse-sdk/dsp/ei_eeg.hpp
       - path: edge-impulse-sdk/dsp/ei_flatten.h
       - path: edge-impulse-sdk/dsp/ei_hr.hpp
       - path: edge-impulse-sdk/dsp/ei_profiler.h
