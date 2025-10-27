@@ -118,6 +118,7 @@ include:
       - path: edge-impulse-sdk/classifier/ei_data_normalization.h
       - path: edge-impulse-sdk/classifier/ei_model_types.h
       - path: edge-impulse-sdk/classifier/ei_nms.h
+      - path: edge-impulse-sdk/classifier/ei_print_results.h
       - path: edge-impulse-sdk/classifier/ei_quantize.h
       - path: edge-impulse-sdk/classifier/ei_run_classifier.h
       - path: edge-impulse-sdk/classifier/ei_run_classifier_c.h
@@ -133,6 +134,7 @@ include:
       - path: edge-impulse-sdk/classifier/inferencing_engines/engines.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/ethos_linux.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/memryx.h
+      - path: edge-impulse-sdk/classifier/inferencing_engines/nordic_axon.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/onnx_tidl.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/tensaiflow.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/tensorrt.h
