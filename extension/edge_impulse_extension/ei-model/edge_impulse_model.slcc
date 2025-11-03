@@ -149,7 +149,9 @@ include:
       - path: edge-impulse-sdk/classifier/postprocessing/ei_object_tracking.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_performance_calibration.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_ai_hub.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_common.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_types.h
       - path: edge-impulse-sdk/classifier/postprocessing/tinyEKF/tinyekf.hpp
       - path: edge-impulse-sdk/classifier/postprocessing/tinyEKF/tinyekf_custom.h
       - path: edge-impulse-sdk/dsp/config.hpp
