@@ -159,6 +159,7 @@ include:
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_arm_cmsis_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_ceva_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_ceva_dsp_fixed.h
+      - path: edge-impulse-sdk/dsp/dsp_engines/ei_cmsis_numpy.hpp
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_esp_dsp.h
       - path: edge-impulse-sdk/dsp/dsp_engines/ei_no_hw_dsp.h
       - path: edge-impulse-sdk/dsp/ei_alloc.h
