@@ -143,6 +143,7 @@ include:
       - path: edge-impulse-sdk/classifier/inferencing_engines/tflite_helper.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/tflite_micro.h
       - path: edge-impulse-sdk/classifier/inferencing_engines/tflite_tidl.h
+      - path: edge-impulse-sdk/classifier/inferencing_engines/vlm_connector.h
       - path: edge-impulse-sdk/classifier/postprocessing/alignment/ei_alignment.hpp
       - path: edge-impulse-sdk/classifier/postprocessing/alignment/rectangular_lsap.hpp
       - path: edge-impulse-sdk/classifier/postprocessing/ei_object_counting.h
@@ -151,6 +152,7 @@ include:
       - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_ai_hub.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_common.h
+      - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_thresholds.h
       - path: edge-impulse-sdk/classifier/postprocessing/ei_postprocessing_types.h
       - path: edge-impulse-sdk/classifier/postprocessing/tinyEKF/tinyekf.hpp
       - path: edge-impulse-sdk/classifier/postprocessing/tinyEKF/tinyekf_custom.h
