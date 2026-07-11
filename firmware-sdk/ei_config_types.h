@@ -77,7 +77,7 @@ typedef struct {
     char sample_hmac_key[33];
     char upload_host[128];
     char upload_path[128];
-    char upload_api_key[128];
+    volatile char upload_api_key[128];
     char mgmt_url[128];
     uint32_t magic;
 } ei_config_t;
